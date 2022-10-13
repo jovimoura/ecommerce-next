@@ -1,12 +1,13 @@
 import { Fragment, useContext, useEffect } from 'react'
 import Head from 'next/head'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, Bars3Icon, XMarkIcon} from '@heroicons/react/20/solid'
-import { AuthContext } from '../contexts/AuthContext'
-import { api } from '../services/api'
+import { BellIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid'
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
-import { getAPIClient } from '../services/axios'
+import { signOut } from 'next-auth/react'
+import { AuthContext } from '../../contexts/AuthContext'
+import { api } from '../../services/api'
+import { getAPIClient } from '../../services/axios'
 
 const navigation = ['Dashboard', 'Team', 'Projects', 'Calendar', 'Reports']
 
@@ -47,7 +48,10 @@ export default function Dashboard() {
                         itemIdx === 0 ? (
                           <Fragment key={item}>
                             {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-                            <a href="#" className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
+                            <a
+                              href="#"
+                              className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                            >
                               {item}
                             </a>
                           </Fragment>
@@ -99,7 +103,7 @@ export default function Dashboard() {
                               static
                               className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                             >
-                              {profile.map((item) => (
+                              {profile.map(item => (
                                 <Menu.Item key={item}>
                                   {({ active }) => (
                                     <a
@@ -115,12 +119,17 @@ export default function Dashboard() {
                                 </Menu.Item>
                               ))}
                               <Menu.Item>
-                                <a
-                                  href="#"
-                                  className='block px-4 py-2 text-sm text-gray-700'
+                                <button
+                                  onClick={() =>
+                                    signOut({
+                                      redirect: true,
+                                      callbackUrl: '/'
+                                    })
+                                  }
+                                  className="block px-4 py-2 text-sm text-gray-700"
                                 >
                                   Sign out
-                                </a>
+                                </button>
                               </Menu.Item>
                             </Menu.Items>
                           </Transition>
@@ -149,7 +158,10 @@ export default function Dashboard() {
                   itemIdx === 0 ? (
                     <Fragment key={item}>
                       {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-                      <a href="#" className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
+                      <a
+                        href="#"
+                        className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                      >
                         {item}
                       </a>
                     </Fragment>
@@ -174,8 +186,12 @@ export default function Dashboard() {
                     />
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium leading-none text-white">Diego Fernandes</div>
-                    <div className="text-sm font-medium leading-none text-gray-400">diego@rocketseat.com.br</div>
+                    <div className="text-base font-medium leading-none text-white">
+                      Diego Fernandes
+                    </div>
+                    <div className="text-sm font-medium leading-none text-gray-400">
+                      diego@rocketseat.com.br
+                    </div>
                   </div>
                   <button className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                     <span className="sr-only">View notifications</span>
@@ -183,7 +199,7 @@ export default function Dashboard() {
                   </button>
                 </div>
                 <div className="mt-3 px-2 space-y-1">
-                  {profile.map((item) => (
+                  {profile.map(item => (
                     <a
                       key={item}
                       href="#"

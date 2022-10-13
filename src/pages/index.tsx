@@ -1,9 +1,28 @@
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import Head from 'next/head'
 import { useForm } from 'react-hook-form'
 import { useContext } from 'react'
+import { signIn as getSignIn, getSession } from 'next-auth/react'
 import { AuthContext } from '../contexts/AuthContext'
+import { FacebookLogo, GoogleLogo, GithubLogo } from 'phosphor-react'
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req })
+  
+  if (session) {
+    return {
+      redirect: {
+        destination: '/dashboard',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: {}
+  }
+}
 
 const Home: NextPage = () => {
   const { register, handleSubmit } = useForm() 
@@ -17,6 +36,11 @@ const Home: NextPage = () => {
       console.log('error: ', error)
     }
   }
+
+  function handleSignIn(type: string) {
+    getSignIn(type)
+  }
+
   return (
     <>
       <Head>
@@ -102,6 +126,18 @@ const Home: NextPage = () => {
                   Forgot your password?
                 </a>
               </div>
+            </div>
+
+            <div className='flex justify-between'>
+              <button>
+                <FacebookLogo size={32} color="#121212" />
+              </button>
+              <button>
+              <GoogleLogo size={32} color="#121212" />
+              </button>
+              <button onClick={() => handleSignIn('github')}>
+              <GithubLogo size={32} color="#121212" />
+              </button>
             </div>
 
             <div>

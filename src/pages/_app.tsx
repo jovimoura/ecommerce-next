@@ -1,11 +1,21 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
+import { SessionProvider } from 'next-auth/react'
 import { AuthProvider } from '../contexts/AuthContext'
 
-function MyApp({ Component, pageProps }: AppProps) {
+interface CustomPageProps {
+  session: any
+}
+
+function MyApp({
+  Component,
+  pageProps: { session, ...pageProps }
+}: AppProps<CustomPageProps>) {
   return (
     <AuthProvider>
-      <Component {...pageProps} />
+      <SessionProvider session={session}>
+        <Component {...pageProps} />
+      </SessionProvider>
     </AuthProvider>
   )
 }
