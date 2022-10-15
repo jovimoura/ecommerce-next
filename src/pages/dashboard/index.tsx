@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import Head from 'next/head'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid'
@@ -8,6 +8,7 @@ import { signOut } from 'next-auth/react'
 import { AuthContext } from '../../contexts/AuthContext'
 import { api } from '../../services/api'
 import { getAPIClient } from '../../services/axios'
+import { prisma } from '../../lib/prisma'
 
 const navigation = ['Dashboard', 'Team', 'Projects', 'Calendar', 'Reports']
 
@@ -17,12 +18,34 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Dashboard() {
+interface Task {
+  id: string
+  title: string
+  isDone: boolean
+  createdAt: string
+  updatedAt: string
+}
+
+interface Props {
+  tasks: Task[]
+}
+
+export default function Dashboard({ tasks }: Props) {
   const { user } = useContext(AuthContext)
 
-  useEffect(() => {
-    api.get('/users')
-  }, [])
+  const [taskState, setTaskState] = useState('')
+
+  async function handleCreateTask() {
+    await api.post('/api/tasks/create', {
+      title: taskState,
+      isDone: false
+    })
+  }
+
+  // useEffect(() => {
+  //   api.get('/users')
+  // }, [])
+  console.log(tasks)
   return (
     <div>
       <Head>
@@ -187,10 +210,10 @@ export default function Dashboard() {
                   </div>
                   <div className="ml-3">
                     <div className="text-base font-medium leading-none text-white">
-                      Diego Fernandes
+                      João Moura
                     </div>
                     <div className="text-sm font-medium leading-none text-gray-400">
-                      diego@rocketseat.com.br
+                      joãovictors.mouraa@gmail.com
                     </div>
                   </div>
                   <button className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
@@ -230,7 +253,13 @@ export default function Dashboard() {
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           {/* Replace with your content */}
           <div className="px-4 py-6 sm:px-0">
-            <div className="border-4 border-dashed border-gray-200 rounded-lg h-96" />
+            <input
+              type="text"
+              placeholder="Create your task"
+              value={taskState}
+              onChange={e => setTaskState(e.target.value)}
+            />
+            <button onClick={handleCreateTask}>Create</button>
           </div>
           {/* /End replace */}
         </div>
@@ -240,7 +269,7 @@ export default function Dashboard() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
-  const apiClient = getAPIClient(ctx)
+  // const apiClient = getAPIClient(ctx)
   const { 'auth_next-token': token } = parseCookies(ctx)
 
   if (!token) {
@@ -251,9 +280,22 @@ export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
       }
     }
   }
+
+  const tasks = await prisma.task.findMany()
+  const data = tasks.map(task => {
+    return {
+      id: task.id,
+      title: task.title,
+      isDone: task.isDone,
+      createdAt: task.createdAt.toISOString(),
+      updatedAt: task.updatedAt.toISOString()
+    }
+  })
   // uncomment when backend is working
   // await apiClient.get('/users')
   return {
-    props: {}
+    props: {
+      tasks: data
+    }
   }
 }

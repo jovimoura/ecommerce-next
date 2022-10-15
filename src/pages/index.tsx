@@ -9,7 +9,7 @@ import { FacebookLogo, GoogleLogo, GithubLogo } from 'phosphor-react'
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req })
-  
+
   if (session) {
     return {
       redirect: {
@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 }
 
 const Home: NextPage = () => {
-  const { register, handleSubmit } = useForm() 
+  const { register, handleSubmit } = useForm()
 
   const { signIn } = useContext(AuthContext)
 
@@ -57,15 +57,6 @@ const Home: NextPage = () => {
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
               Sign in to your account
             </h2>
-            <p className="mt-2 text-center text-sm text-gray-600">
-              Or{' '}
-              <a
-                href="#"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                start your 14-day free trial
-              </a>
-            </p>
           </div>
           <form onSubmit={handleSubmit(handleSign)} className="mt-8 space-y-6">
             <input type="hidden" name="remember" defaultValue="true" />
@@ -90,7 +81,7 @@ const Home: NextPage = () => {
                   Password
                 </label>
                 <input
-                {...register('password')}
+                  {...register('password')}
                   id="password"
                   name="password"
                   type="password"
@@ -128,15 +119,15 @@ const Home: NextPage = () => {
               </div>
             </div>
 
-            <div className='flex justify-between'>
+            <div className="flex justify-between">
               <button>
                 <FacebookLogo size={32} color="#121212" />
               </button>
               <button>
-              <GoogleLogo size={32} color="#121212" />
+                <GoogleLogo size={32} color="#121212" />
               </button>
               <button onClick={() => handleSignIn('github')}>
-              <GithubLogo size={32} color="#121212" />
+                <GithubLogo size={32} color="#121212" />
               </button>
             </div>
 
