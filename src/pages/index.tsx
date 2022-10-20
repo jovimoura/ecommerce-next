@@ -1,13 +1,21 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import Head from 'next/head'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { useContext, useState } from 'react'
 import { signIn as getSignIn, getSession } from 'next-auth/react'
 import { AuthContext } from '../contexts/AuthContext'
-import { FacebookLogo, GoogleLogo, GithubLogo, Camera, Eye } from 'phosphor-react'
-import { Input } from '../components/Input'
+import { FacebookLogo, GoogleLogo, GithubLogo, Camera } from 'phosphor-react'
 import { InputFile } from '../components/InputFile'
+import { api } from '../services/api'
+
+interface FormValues {
+  signUpName: string
+  signUpEmail: string
+  signUpPassword: string
+  email: string
+  password: string
+}
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req })
@@ -29,25 +37,37 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 const Home: NextPage = () => {
   const [page, setPage] = useState<'signIn' | 'signUp'>('signIn')
 
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, unregister } = useForm<FormValues>()
 
   const { signIn } = useContext(AuthContext)
 
   const [file, setFile] = useState()
 
-  async function handleSign(data: any) {
-    try {
-      await signIn(data)
-    } catch (error) {
-      console.log('handle signIn error: ', error)
-    }
+  const handleClearInputs = () => {
+    unregister('signUpEmail')
+    unregister('signUpName')
+    unregister('signUpPassword')
   }
 
-  async function handleSignUp(data: any) {
+  const handleSign: SubmitHandler<FormValues> = async data => {
+    const { message } = await signIn(data)
+    if (message.startsWith('Error')) alert('Email or password is wrong!')
+    else return
+  }
+
+  const handleSignUp: SubmitHandler<FormValues> = async data => {
     try {
-      // create account
+      api
+        .post('/api/login/signUp', {
+          name: data.signUpName,
+          email: data.signUpEmail,
+          password: data.signUpPassword
+        })
+        .then(res => alert(`${res.data.message}`))
+      setPage('signIn')
+      handleClearInputs()
     } catch (error) {
-      // 
+      console.log(`Error: ${error}`)
     }
   }
 
@@ -107,28 +127,29 @@ const Home: NextPage = () => {
               onSubmit={handleSubmit(handleSign)}
               className="mt-8 space-y-6"
             >
-              <Input type="hidden" name="remember" defaultValue="true" />
+              <input type="hidden" name="remember" defaultValue="true" />
               <div className="rounded-md shadow-sm">
                 <div>
                   <label htmlFor="email-address" className="sr-only">
                     Email address
                   </label>
-                  <Input
-                    {...register('email')}
-                    id="email-address"
-                    name="email"
+                  <input
+                    className="relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    id="email"
                     type="email"
-                    autoComplete="email"
                     required
+                    autoComplete="email"
                     placeholder="Email address"
+                    {...register('email')}
                   />
                 </div>
                 <div className="mt-2">
                   <label htmlFor="password" className="sr-only">
                     Password
                   </label>
-                  <Input
+                  <input
                     {...register('password')}
+                    className="relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     id="password"
                     name="password"
                     type="password"
@@ -141,7 +162,7 @@ const Home: NextPage = () => {
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                  <Input
+                  <input
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
@@ -193,18 +214,19 @@ const Home: NextPage = () => {
               </div>
             </form>
           ) : (
-            <form onSubmit={handleSubmit(handleSign)} className="mt-8">
+            <form onSubmit={handleSubmit(handleSignUp)} className="mt-8">
               <div className="flex justify-between">
                 <div>
                   <div className="rounded-md shadow-sm">
                     <div className="mb-2">
-                      <label htmlFor="fullName" className="">
+                      <label htmlFor="signUpName" className="">
                         Name
                       </label>
-                      <Input
-                        {...register('fullName')}
-                        id="fullName"
-                        name="fullName"
+                      <input
+                        {...register('signUpName')}
+                        className="relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                        id="signUpName"
+                        name="signUpName"
                         type="text"
                         required
                         placeholder="Full Name"
@@ -214,10 +236,11 @@ const Home: NextPage = () => {
                       <label htmlFor="email-address" className="">
                         Email address
                       </label>
-                      <Input
-                        {...register('email')}
-                        id="email-address"
-                        name="email"
+                      <input
+                        {...register('signUpEmail')}
+                        className="relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                        id="signUpEmail-address"
+                        name="signUpEmail"
                         type="email"
                         autoComplete="email"
                         required
@@ -228,10 +251,11 @@ const Home: NextPage = () => {
                       <label htmlFor="password" className="">
                         Password
                       </label>
-                      <Input
-                        {...register('password')}
-                        id="password"
-                        name="password"
+                      <input
+                        {...register('signUpPassword')}
+                        className="relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                        id="signUpPassword"
+                        name="signUpPassword"
                         type="password"
                         autoComplete="current-password"
                         required
@@ -244,20 +268,28 @@ const Home: NextPage = () => {
                 <div>
                   <div className="flex justify-center items-center flex-col">
                     {file ? (
-                      <img className='w-[165px] h-[165px] rounded-full' src={URL.createObjectURL(file)} alt="logo user" />
+                      <img
+                        className="w-[165px] h-[165px] rounded-full"
+                        src={URL.createObjectURL(file)}
+                        alt="logo user"
+                      />
                     ) : (
                       <div className="w-[165px] h-[165px] rounded-full bg-zinc-100 flex items-center justify-center gap-1">
-                        <Camera className='w-6 h-6'/>
+                        <Camera className="w-6 h-6" />
                         <span className="font-bold text-base text-center">
                           Your Photo
                         </span>
                       </div>
                     )}
-                    <InputFile title='Select Perfil Image' accept='image/*' onChange={handleSetFile}/>
+                    <InputFile
+                      title="Select Perfil Image"
+                      accept="image/*"
+                      onChange={handleSetFile}
+                    />
                   </div>
                 </div>
               </div>
-              <div className='mt-5'>
+              <div className="mt-5">
                 <button
                   type="submit"
                   className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"

@@ -18,7 +18,7 @@ interface User {
 interface AuthContextType {
   user: User | null
   isAuthenticated: boolean
-  signIn: (data: SignInData) => Promise<void>
+  signIn: (data: SignInData) => Promise<{ message: string }>
 }
 
 export const AuthContext = createContext({} as AuthContextType)
@@ -37,6 +37,7 @@ export function AuthProvider({ children }: any) {
   }, [])
 
   async function signIn({ email, password }: SignInData) {
+    console.log('SIGN IN PROPS', email, password)
     try {
       const { token, user } = await signInRequest({
         email,
@@ -52,8 +53,10 @@ export function AuthProvider({ children }: any) {
 
       setUser(user)
       Router.push('/dashboard')
+      return { message: 'Logged!' }
     } catch (error) {
       Router.push('/')
+      return { message: `Error: ${error}` }
     }
   }
 

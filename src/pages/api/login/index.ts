@@ -1,6 +1,7 @@
 import { NextApiResponse } from 'next'
 import { NextApiRequest } from 'next'
 import { prisma } from '../../../lib/prisma'
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { email, password } = req.body
 
@@ -10,12 +11,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const [user] = verifyPassword
 
-  if (!verifyPassword) {
+  if (verifyPassword.length < 0) {
     return res.status(404).json({ error: "Email don't exists!" })
   }
 
   if (user?.password !== password) {
     return res.status(404).json({ error: 'Wrong password!' })
+  }
+
+  if (!user) {
+    return res.status(404).json({ error: "User don't exists!" })
   }
 
   const response = {
