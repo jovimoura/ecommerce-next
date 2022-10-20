@@ -42,10 +42,6 @@ export default function Dashboard({ tasks }: Props) {
     })
   }
 
-  // useEffect(() => {
-  //   api.get('/users')
-  // }, [])
-  console.log(tasks)
   return (
     <div>
       <Head>

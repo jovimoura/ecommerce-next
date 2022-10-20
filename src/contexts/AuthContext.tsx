@@ -32,25 +32,29 @@ export function AuthProvider({ children }: any) {
     const { 'auth_next-token': token } = parseCookies()
 
     if (token) {
-      recoverUserInformation().then(res => setUser(res.user))
+      recoverUserInformation(token).then(res => setUser(res.user))
     }
   }, [])
 
   async function signIn({ email, password }: SignInData) {
-    const { token, user } = await signInRequest({
-      email,
-      password
-    })
+    try {
+      const { token, user } = await signInRequest({
+        email,
+        password
+      })
 
-    // runing on web, so first params is undefined
-    setCookie(undefined, 'auth_next-token', token, {
-      maxAge: 60 * 60 * 1 // 1 hour
-    })
+      // runing on web, so first params is undefined
+      setCookie(undefined, 'auth_next-token', token, {
+        maxAge: 60 * 60 * 1 // 1 hour
+      })
 
-    api.defaults.headers['Authorization'] = `Bearer ${token}`
+      api.defaults.headers['Authorization'] = `Bearer ${token}`
 
-    setUser(user)
-    Router.push('/dashboard')
+      setUser(user)
+      Router.push('/dashboard')
+    } catch (error) {
+      Router.push('/')
+    }
   }
 
   return (
