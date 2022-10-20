@@ -17,13 +17,11 @@ const delay = (amount = 750) =>
 
 export async function signInRequest(data: SignInRequestData) {
   const { email, password } = data
-  console.log(`email: ${email}, password: ${password}`)
 
   const res = await api.post('/api/login', {
     email,
     password
   })
-  console.log('RES', res)
 
   await delay()
 

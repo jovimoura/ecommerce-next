@@ -37,7 +37,6 @@ export function AuthProvider({ children }: any) {
   }, [])
 
   async function signIn({ email, password }: SignInData) {
-    console.log('SIGN IN PROPS', email, password)
     try {
       const { token, user } = await signInRequest({
         email,
