@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid'
 import { api } from './api'
 
 type SignInRequestData = {
@@ -33,13 +32,9 @@ export async function signInRequest(data: SignInRequestData) {
  * @returns { user: { name: String, email: String, avatar_url: String } }
  */
 export async function recoverUserInformation(token?: string) {
+  const res = await api.get(`/api/login/${token}`)
+
   await delay()
 
-  return {
-    user: {
-      name: 'João Moura',
-      email: 'joaovictors.mouraa@gmail.com',
-      avatar_url: 'https://github.com/jovimoura.png'
-    }
-  }
+  return res
 }

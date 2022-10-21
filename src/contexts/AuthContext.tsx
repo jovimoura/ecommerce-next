@@ -28,14 +28,6 @@ export function AuthProvider({ children }: any) {
 
   const isAuthenticated = !!user
 
-  useEffect(() => {
-    const { 'auth_next-token': token } = parseCookies()
-
-    if (token) {
-      recoverUserInformation(token).then(res => setUser(res.user))
-    }
-  }, [])
-
   async function signIn({ email, password }: SignInData) {
     try {
       const { token, user } = await signInRequest({
@@ -58,6 +50,18 @@ export function AuthProvider({ children }: any) {
       return { message: `Error: ${error}` }
     }
   }
+
+  useEffect(() => {
+    const { 'auth_next-token': token } = parseCookies()
+
+    if (token) {
+      recoverUserInformation(token)
+        .then(({ data }) => {
+          setUser(data)
+        })
+        .catch(err => console.log(`RecoverUserInfo Error: ${err}`))
+    }
+  }, [])
 
   return (
     <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>
