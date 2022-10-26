@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer base {
+  ::-webkit-scrollbar {
+    @apply hidden md:block w-1;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-[#2A2634] rounded;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-indigo-700 rounded;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-indigo-600;
+  }
+}

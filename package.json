@@ -9,6 +9,7 @@
     "@headlessui/react": "^1.7.3",
     "@heroicons/react": "^2.0.12",
     "@prisma/client": "^4.4.0",
+    "@radix-ui/react-dialog": "^1.0.2",
     "axios": "^1.1.2",
     "next": "latest",
     "next-auth": "^4.13.0",

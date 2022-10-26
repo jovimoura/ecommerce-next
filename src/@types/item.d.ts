@@ -1,4 +1,5 @@
 export type ItemProps = {
+  id: string
   imageUrl: string
   title: string
   price: string | number

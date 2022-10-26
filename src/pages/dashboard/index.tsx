@@ -2,11 +2,13 @@ import { useContext, useState } from 'react'
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
+import * as Dialog from '@radix-ui/react-dialog'
 import { AuthContext } from '../../contexts/AuthContext'
 import { api } from '../../services/api'
 import { prisma } from '../../lib/prisma'
 import { Item } from '../../components/Item'
 import { ItemProps } from '../../@types/item'
+import { CreateItem } from '../../components/CreateItem'
 
 interface Task {
   id: string
@@ -22,6 +24,7 @@ interface Props {
 
 const items: ItemProps[] = [
   {
+    id: 'akdmaskdmad',
     imageUrl:
       'https://www.iplace.com.br/ccstore/v1/images/?source=/file/v5758673239502908668/products/215989.00-iphone-11-apple-preto-mhda3br-a.jpg&height=470&width=470&height=470&width=470&quality=0.8',
     price: 3149,
@@ -87,7 +90,8 @@ export default function Dashboard({ tasks }: Props) {
           <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
         </div>
       </header>
-      <main>
+
+      <Dialog.Root>
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           <div className="flex px-2 sm:px-0 gap-4">
             <input
@@ -97,25 +101,29 @@ export default function Dashboard({ tasks }: Props) {
               value={taskState}
               onChange={e => setTaskState(e.target.value)}
             />
-            <button
-              className="flex w-20 justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            <Dialog.Trigger
+              className="flex w-20 justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
+              focus:ring-offset-zinc-900"
               onClick={handleCreateTask}
             >
               Create
-            </button>
+            </Dialog.Trigger>
           </div>
-          <div className='mt-6 flex flex-wrap gap-3'>
+          <div className="mt-6 flex flex-wrap gap-3">
             {items.map((item, i) => (
               <Item
                 key={i}
+                id={item.id}
                 imageUrl={item.imageUrl}
                 price={item.price}
                 title={item.title}
+                onEdit={async () => console.log('edit')}
               />
             ))}
           </div>
         </div>
-      </main>
+        <CreateItem />
+      </Dialog.Root>
     </div>
   )
 }

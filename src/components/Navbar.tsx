@@ -2,6 +2,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Fragment, useContext } from 'react'
 import { AuthContext } from '../contexts/AuthContext'
 
@@ -17,10 +18,14 @@ const navigation = [
   { name: 'Reports', route: '/reports' }
 ]
 
-const profile = ['Your Profile', 'Settings']
+const profile = [
+  { name: 'Your Profile', route: '/profile' },
+  { name: 'Settings', route: '/settings' }
+]
 
 export function Navbar() {
   const { user } = useContext(AuthContext)
+  const router = useRouter()
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -38,28 +43,49 @@ export function Navbar() {
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-10 flex items-baseline space-x-4">
-                    {navigation.map((item, itemIdx) =>
-                      itemIdx === 0 ? (
-                        <Fragment key={itemIdx}>
-                          <Link href={item.route}> 
-                          <a
-                            className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
-                          >
-                            {item.name}
-                          </a>
-                          </Link>
-                          
-                        </Fragment>
-                      ) : (
-                        <a
-                          key={itemIdx}
-                          href="#"
-                          className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                        >
-                          {item.name}
-                        </a>
-                      )
-                    )}
+                    {user?.isAdmin
+                      ? navigation.map((item, itemIdx) =>
+                          router.asPath === item.route ? (
+                            <Fragment key={itemIdx}>
+                              <Link href={item.route}>
+                                <a className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
+                                  {item.name}
+                                </a>
+                              </Link>
+                            </Fragment>
+                          ) : (
+                            <Link href={item.route}>
+                              <a
+                                key={itemIdx}
+                                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                              >
+                                {item.name}
+                              </a>
+                            </Link>
+                          )
+                        )
+                      : navigation
+                          .filter(item => item.name !== 'Dashboard')
+                          .map((item, itemIdx) =>
+                            router.asPath === item.route ? (
+                              <Fragment key={itemIdx}>
+                                <Link href={item.route}>
+                                  <a className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
+                                    {item.name}
+                                  </a>
+                                </Link>
+                              </Fragment>
+                            ) : (
+                              <Link href={item.route}>
+                                <a
+                                  key={itemIdx}
+                                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                >
+                                  {item.name}
+                                </a>
+                              </Link>
+                            )
+                          )}
                   </div>
                 </div>
               </div>
@@ -97,18 +123,20 @@ export function Navbar() {
                             static
                             className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                           >
-                            {profile.map(item => (
-                              <Menu.Item key={item}>
+                            {profile.map((item, i) => (
+                              <Menu.Item key={i}>
                                 {({ active }) => (
-                                  <a
-                                    href="#"
-                                    className={classNames(
-                                      active ? 'bg-gray-100' : '',
-                                      'block px-4 py-2 text-sm text-gray-700'
-                                    )}
-                                  >
-                                    {item}
-                                  </a>
+                                  <Link href={item.route}>
+                                    <a
+                                      href="#"
+                                      className={classNames(
+                                        active ? 'bg-gray-100' : '',
+                                        'block px-4 py-2 text-sm text-gray-700'
+                                      )}
+                                    >
+                                      {item.name}
+                                    </a>
+                                  </Link>
                                 )}
                               </Menu.Item>
                             ))}
@@ -148,23 +176,23 @@ export function Navbar() {
           <Disclosure.Panel className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {navigation.map((item, itemIdx) =>
-                itemIdx === 0 ? (
+                router.asPath === item.route ? (
                   <Fragment key={itemIdx}>
+                    <Link href={item.route}>
+                      <a className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
+                        {item.name}
+                      </a>
+                    </Link>
+                  </Fragment>
+                ) : (
+                  <Link href={item.route}>
                     <a
-                      href="#"
-                      className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                      key={itemIdx}
+                      className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                     >
                       {item.name}
                     </a>
-                  </Fragment>
-                ) : (
-                  <a
-                    key={itemIdx}
-                    href="#"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                  >
-                    {item.name}
-                  </a>
+                  </Link>
                 )
               )}
             </div>
@@ -191,14 +219,16 @@ export function Navbar() {
                 </button>
               </div>
               <div className="mt-3 px-2 space-y-1">
-                {profile.map(item => (
-                  <a
-                    key={item}
-                    href="#"
-                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-                  >
-                    {item}
-                  </a>
+                {profile.map((item, i) => (
+                  <Link href={item.route}>
+                    <a
+                      key={i}
+                      href="#"
+                      className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                    >
+                      {item.name}
+                    </a>
+                  </Link>
                 ))}
                 <button
                   onClick={() =>

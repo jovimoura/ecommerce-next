@@ -13,6 +13,7 @@ interface User {
   name: string
   email: string
   avatar_url: string
+  isAdmin: boolean
 }
 
 interface AuthContextType {
