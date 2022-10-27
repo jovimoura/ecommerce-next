@@ -104,7 +104,7 @@ export function Navbar() {
                             <span className="sr-only">Open user menu</span>
                             <img
                               className="h-8 w-8 rounded-full"
-                              src={user?.avatar_url}
+                              src={user?.avatar_url as string}
                               alt=""
                             />
                           </Menu.Button>
@@ -128,7 +128,6 @@ export function Navbar() {
                                 {({ active }) => (
                                   <Link href={item.route}>
                                     <a
-                                      href="#"
                                       className={classNames(
                                         active ? 'bg-gray-100' : '',
                                         'block px-4 py-2 text-sm text-gray-700'
@@ -224,7 +223,7 @@ export function Navbar() {
                 <div className="flex-shrink-0">
                   <img
                     className="h-10 w-10 rounded-full"
-                    src={user?.avatar_url}
+                    src={user?.avatar_url || "https://img.icons8.com/fluency/96/000000/user-male-circle.png"}
                     alt=""
                   />
                 </div>

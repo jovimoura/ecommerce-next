@@ -44,8 +44,13 @@ export function AuthProvider({ children }: any) {
       api.defaults.headers['Authorization'] = `Bearer ${token}`
 
       setUser(user)
-      Router.push('/dashboard')
-      return { message: 'Logged!' }
+      if (user?.isAdmin) {
+        Router.push('/dashboard')
+        return { message: 'Logged!' }
+      } else {
+        Router.push('/marketplace')
+        return { message: 'Logged!' }
+      }
     } catch (error) {
       Router.push('/')
       return { message: `Error: ${error}` }

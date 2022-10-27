@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import Router from 'next/router'
 import { Camera, CheckSquare } from 'phosphor-react'
 import { FormEvent, useState } from 'react'
+import { ItemProps } from '../@types/item'
 import { api } from '../services/api'
 import { toBase64 } from '../use-cases/toBase64'
 import { InputFile } from './InputFile'
@@ -26,12 +26,27 @@ const types = [
   }
 ]
 
-export const CreateItem = () => {
-  const [title, setTitle] = useState('')
-  const [price, setPrice] = useState('')
-  const [type, setType] = useState('')
+interface EditItemProps {
+  id: string
+  items: ItemProps[]
+}
+
+export const EditItem = ({ id, items }: EditItemProps) => {
+  const [title, setTitle] = useState(items[0].title || '')
+  const [price, setPrice] = useState(items[0].price ||'')
+  const [type, setType] = useState(items[0].type ||'')
+  const [imageUrl, setImageUrl] = useState(items[0].imageUrl || '')
+
   const [file, setFile] = useState(null)
   const [viewSuccessMessage, setViewSuccessMessage] = useState(false)
+
+  function handleOpen() {
+    setTitle(items[0].title)
+    setPrice(items[0].price)
+    setType(items[0].type)
+    setImageUrl(items[0].imageUrl)
+    setFile(null)
+  }
 
   function handleSetFile(e: any) {
     setFile(e.target.files[0])
@@ -41,6 +56,7 @@ export const CreateItem = () => {
     setTitle('')
     setPrice('')
     setType('')
+    setImageUrl('')
     setFile(null)
   }
 
@@ -48,41 +64,41 @@ export const CreateItem = () => {
     setViewSuccessMessage(!viewSuccessMessage)
   }
 
-  async function handleCreateItem(e: FormEvent) {
+  async function handleEditItem(e: FormEvent) {
     e.preventDefault()
     let obj = {
       title,
-      price,
+      price: price as string,
       type,
-      imageUrl: await toBase64(file)
+      imageUrl: file ? await toBase64(file) : imageUrl
     }
+    console.log(obj)
     await api
-      .post('/api/items/create-item', obj)
+      .patch(`/api/items/${id}`, obj)
       .then(res => {
         handleSuccessItem()
         handleClearInputs()
         handleSuccessItem()
-        alert(res.data.message)
-        Router.reload()
+        alert('Item edited!')
       })
-      .catch(_ => alert('Item not created!'))
+      .catch(_ => alert('Item not edited!'))
   }
   return (
     <Dialog.Portal>
       <Dialog.Overlay className="bg-black/60 inset-0 fixed" />
-      <Dialog.Content className="fixed bg-white dark:bg-gray-800 py-8 px-10 text-gray-900 dark:text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg h-4/5 md:h-[600px] overflow-scroll md:overflow-y-auto md:overflow-x-hidden md:w-[480px] w-[330px] shadow-lg shadow-black/25">
+      <Dialog.Content onCloseAutoFocus={handleClearInputs} onOpenAutoFocus={handleOpen} className="fixed bg-white dark:bg-gray-800 py-8 px-10 text-gray-900 dark:text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg h-4/5 md:h-[600px] overflow-scroll md:overflow-y-auto md:overflow-x-hidden md:w-[480px] w-[330px] shadow-lg shadow-black/25">
         <Dialog.Title className="text-center text-3xl font-black">
-          Create New Item
+          Edit Item
         </Dialog.Title>
         <form
-          onSubmit={e => handleCreateItem(e)}
+          onSubmit={e => handleEditItem(e)}
           className="mt-2 flex flex-col gap-4"
         >
           <div className="flex items-center flex-col gap-2">
-            {file ? (
+            {imageUrl ? (
               <img
                 className="w-[165px] h-[165px] rounded-full"
-                src={URL.createObjectURL(file)}
+                src={file ? URL.createObjectURL(file) : imageUrl}
                 alt="logo user"
               />
             ) : (
@@ -135,7 +151,7 @@ export const CreateItem = () => {
               className="flex items-center gap-3 bg-indigo-500 px-5 h-12 rounded-md font-semibold text-white hover:bg-indigo-600 transition-colors"
               type="submit"
             >
-              Create
+              Edit
             </button>
           </footer>
           {viewSuccessMessage && (

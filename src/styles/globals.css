@@ -12,7 +12,7 @@ body {
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-[#2A2634] rounded;
+    @apply bg-gray-900 rounded;
   }
 
   ::-webkit-scrollbar-thumb {
