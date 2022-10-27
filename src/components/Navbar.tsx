@@ -175,26 +175,49 @@ export function Navbar() {
 
           <Disclosure.Panel className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {navigation.map((item, itemIdx) =>
-                router.asPath === item.route ? (
-                  <Fragment key={itemIdx}>
-                    <Link href={item.route}>
-                      <a className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
-                        {item.name}
-                      </a>
-                    </Link>
-                  </Fragment>
-                ) : (
-                  <Link href={item.route}>
-                    <a
-                      key={itemIdx}
-                      className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                    >
-                      {item.name}
-                    </a>
-                  </Link>
-                )
-              )}
+              {user?.isAdmin
+                ? navigation.map((item, itemIdx) =>
+                    router.asPath === item.route ? (
+                      <Fragment key={itemIdx}>
+                        <Link href={item.route}>
+                          <a className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
+                            {item.name}
+                          </a>
+                        </Link>
+                      </Fragment>
+                    ) : (
+                      <Link href={item.route}>
+                        <a
+                          key={itemIdx}
+                          className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                        >
+                          {item.name}
+                        </a>
+                      </Link>
+                    )
+                  )
+                : navigation
+                    .filter(item => item.name !== 'Dashboard')
+                    .map((item, itemIdx) =>
+                      router.asPath === item.route ? (
+                        <Fragment key={itemIdx}>
+                          <Link href={item.route}>
+                            <a className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
+                              {item.name}
+                            </a>
+                          </Link>
+                        </Fragment>
+                      ) : (
+                        <Link href={item.route}>
+                          <a
+                            key={itemIdx}
+                            className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                          >
+                            {item.name}
+                          </a>
+                        </Link>
+                      )
+                    )}
             </div>
             <div className="pt-4 pb-3 border-t border-gray-700">
               <div className="flex items-center px-5">
