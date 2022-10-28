@@ -57,17 +57,18 @@ export const getServerSideProps: GetServerSideProps = async () => {
 }
 
 export default function Marketplace({ items }: Props) {
-  const [search, setSeatch] = useState('')
+  const [search, setSearch] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [cardsPerPage] = useState(4)
 
-  const filteredItems =
-    search.length > 0 ? items.filter(item => item.title.includes(search)) : []
-
   const indexOfLastCards = currentPage * cardsPerPage
   const indexOfFirstCards = indexOfLastCards - cardsPerPage
+  const currentCards = items.slice(indexOfFirstCards, indexOfLastCards);
 
-  const paginate = (pageNumber: any) => setCurrentPage(pageNumber)
+  const filteredItems =
+    search.length > 0 ? currentCards.filter(item => item.title.includes(search)) : []
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
 
   return (
     <>
@@ -79,47 +80,49 @@ export default function Marketplace({ items }: Props) {
           type="image/x-icon"
         />
       </Head>
-      <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div className="flex px-2 sm:px-0 gap-4">
+      <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div className="flex px-2 pt-6 sm:px-0 gap-4">
           <input
             type="text"
             className="w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             placeholder="Search item..."
             value={search}
-            onChange={e => setSeatch(e.target.value)}
+            onChange={e => setSearch(e.target.value)}
           />
           <Select className="w-auto" items={types} />
         </div>
-        <div className="mt-6 px-0 sm:px-6 lg:px-8 flex flex-wrap gap-3">
-          {search.length > 0
-            ? filteredItems?.map((item, i) => (
-                <Link href={`/marketplace/${item.id}`}>
-                  <a>
-                    <Item
-                      key={i}
-                      id={item.id}
-                      imageUrl={item.imageUrl}
-                      type={item.type}
-                      price={item.price}
-                      title={item.title}
-                    />
-                  </a>
-                </Link>
-              ))
-            : items?.map((item, i) => (
-                <Link href={`/marketplace/${item.id}`}>
-                  <a>
-                    <Item
-                      key={i}
-                      id={item.id}
-                      imageUrl={item.imageUrl}
-                      type={item.type}
-                      price={item.price}
-                      title={item.title}
-                    />
-                  </a>
-                </Link>
-              ))}
+        <div className="h-[calc(100vh-229px)]">
+          <div className="mt-6 px-0 sm:px-6 lg:px-8 flex flex-wrap gap-3">
+            {search.length > 0
+              ? filteredItems?.map((item, i) => (
+                  <Link href={`/marketplace/${item.id}`}>
+                    <a>
+                      <Item
+                        key={i}
+                        id={item.id}
+                        imageUrl={item.imageUrl}
+                        type={item.type}
+                        price={item.price}
+                        title={item.title}
+                      />
+                    </a>
+                  </Link>
+                ))
+              : currentCards?.map((item, i) => (
+                  <Link href={`/marketplace/${item.id}`}>
+                    <a>
+                      <Item
+                        key={i}
+                        id={item.id}
+                        imageUrl={item.imageUrl}
+                        type={item.type}
+                        price={item.price}
+                        title={item.title}
+                      />
+                    </a>
+                  </Link>
+                ))}
+          </div>
         </div>
         <Pagination
           totalCards={items?.length}

@@ -1,4 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog'
+import Router from 'next/router'
 import { Camera, CheckSquare } from 'phosphor-react'
 import { FormEvent, useState } from 'react'
 import { ItemProps } from '../@types/item'
@@ -79,6 +80,7 @@ export const EditItem = ({ id, items }: EditItemProps) => {
         handleSuccessItem()
         handleClearInputs()
         handleSuccessItem()
+        Router.reload()
         alert('Item edited!')
       })
       .catch(_ => alert('Item not edited!'))

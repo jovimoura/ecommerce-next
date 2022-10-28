@@ -3,6 +3,7 @@ import { BellIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { ShoppingCartSimple } from 'phosphor-react'
 import { Fragment, useContext } from 'react'
 import { AuthContext } from '../contexts/AuthContext'
 
@@ -93,7 +94,7 @@ export function Navbar() {
                 <div className="ml-4 flex items-center md:ml-6">
                   <button className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                     <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                    <ShoppingCartSimple weight="fill" size={24} />
                   </button>
 
                   <Menu as="div" className="ml-3 relative">
@@ -104,7 +105,10 @@ export function Navbar() {
                             <span className="sr-only">Open user menu</span>
                             <img
                               className="h-8 w-8 rounded-full"
-                              src={user?.avatar_url as string}
+                              src={
+                                (user?.avatar_url as string) ||
+                                'https://img.icons8.com/external-others-inmotus-design/67/000000/external-User-vkontakte-others-inmotus-design-5.png'
+                              }
                               alt=""
                             />
                           </Menu.Button>
@@ -223,7 +227,10 @@ export function Navbar() {
                 <div className="flex-shrink-0">
                   <img
                     className="h-10 w-10 rounded-full"
-                    src={user?.avatar_url || "https://img.icons8.com/fluency/96/000000/user-male-circle.png"}
+                    src={
+                      (user?.avatar_url as string) ||
+                      'https://img.icons8.com/external-others-inmotus-design/67/000000/external-User-vkontakte-others-inmotus-design-5.png'
+                    }
                     alt=""
                   />
                 </div>

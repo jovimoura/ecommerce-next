@@ -62,7 +62,7 @@ export default function Item({ item }: Props) {
           type="image/x-icon"
         />
       </Head>
-      <div className="pl-5 pt-3">
+      <div className="pl-0 md:pl-5 pt-3">
         <button
           className="flex gap-2 items-center text-2xl text-gray-900 font-bold hover:text-gray-700"
           onClick={handleBack}
@@ -71,12 +71,12 @@ export default function Item({ item }: Props) {
           Back
         </button>
       </div>
-      <div className="flex gap-5 mx-auto justify-center items-center">
-        <div className="w-1/2 px-auto flex justify-center items-center">
+      <div className="flex flex-col md:flex-row gap-5 mx-auto justify-center items-center">
+        <div className="w-full md:w-1/2 px-auto flex justify-center items-center">
           <Image width={350} height={350} src={item.imageUrl} />
         </div>
-        <div className="w-2/5 px-auto flex flex-col justify-center items-left text-gray-900">
-          <div className="flex items-center justify-between gap-8">
+        <div className="w-full md:w-2/5 px-auto flex flex-col justify-center items-left text-gray-900">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div>
               <h1 className="text-3xl font-bold">{item.title}</h1>
               <div className="mt-3 flex gap-2 items-center justify-left">
@@ -92,7 +92,7 @@ export default function Item({ item }: Props) {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col">
+            <div className="w-full flex flex-row md:flex-col pl-5 md:pl-0">
               <button onClick={handleFavorite}>
                 <Heart
                   weight={isFavorited ? 'fill' : 'bold'}
@@ -109,7 +109,7 @@ export default function Item({ item }: Props) {
               </button>
             </div>
           </div>
-          <div className="flex flex-col mt-5">
+          <div className="flex flex-col mt-5 pl-5 md:pl-0">
             <h3 className="text-5xl font-bold">
               {convertToReal(item.price)}{' '}
               <span className="text-lg font-normal">in cash</span>

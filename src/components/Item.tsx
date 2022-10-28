@@ -11,7 +11,7 @@ export const Item = ({
   imageUrl
 }: ItemProps) => {
   return (
-    <div className="shadow-md p-2 w-[190px] h-[262px] max-w-[250px] rounded-lg flex flex-col justify-center items-center gap-2 text-gray-900">
+    <div className={`shadow-md p-2 w-[190px] h-[262px] max-w-[189px] md:max-w-[250px] rounded-lg flex flex-col justify-center items-center gap-2 text-gray-900 ${!onDelete || !onEdit ? 'h-[238px]' : ''}`}>
       <div className="w-full flex justify-end gap-2">
         {onDelete && (
           <Trash
