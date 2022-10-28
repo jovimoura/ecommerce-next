@@ -8,6 +8,7 @@ import { AuthContext } from '../contexts/AuthContext'
 import { FacebookLogo, GoogleLogo, GithubLogo, Camera } from 'phosphor-react'
 import { InputFile } from '../components/InputFile'
 import { api } from '../services/api'
+import { toBase64 } from '../use-cases/toBase64'
 
 interface FormValues {
   signUpName: string
@@ -61,7 +62,8 @@ const Home: NextPage = () => {
         .post('/api/login/signUp', {
           name: data.signUpName,
           email: data.signUpEmail,
-          password: data.signUpPassword
+          password: data.signUpPassword,
+          avatarUrl: await toBase64(file)
         })
         .then(res => alert(`${res.data.message}`))
       setPage('signIn')
