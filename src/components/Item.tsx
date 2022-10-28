@@ -13,18 +13,23 @@ export const Item = ({
   return (
     <div className="shadow-md p-2 w-[190px] h-[262px] max-w-[250px] rounded-lg flex flex-col justify-center items-center gap-2 text-gray-900">
       <div className="w-full flex justify-end gap-2">
-        <Trash
-          onClick={onDelete}
-          size={24}
-          className="cursor-pointer text-gray-700 hover:text-indigo-600"
-        />
-        <Dialog.Trigger>
-          <NotePencil
-            onClick={onEdit}
+        {onDelete && (
+          <Trash
+            onClick={onDelete}
             size={24}
             className="cursor-pointer text-gray-700 hover:text-indigo-600"
           />
-        </Dialog.Trigger>
+        )}
+
+        {onEdit && (
+          <Dialog.Trigger>
+            <NotePencil
+              onClick={onEdit}
+              size={24}
+              className="cursor-pointer text-gray-700 hover:text-indigo-600"
+            />
+          </Dialog.Trigger>
+        )}
       </div>
       <img
         src={imageUrl}

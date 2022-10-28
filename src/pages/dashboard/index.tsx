@@ -12,6 +12,7 @@ import { ItemProps } from '../../@types/item'
 import { CreateItem } from '../../components/CreateItem'
 import { EditItem } from '../../components/EditItem'
 import Router from 'next/router'
+import { Pagination } from '../../components/Pagination'
 
 interface Props {
   items: ItemProps[]
@@ -55,9 +56,13 @@ export default function Dashboard({ items }: Props) {
 
   const [search, setSeatch] = useState('')
   const [editId, setEditId] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const [cardsPerPage] = useState(4)
 
   const filteredItems =
     search.length > 0 ? items.filter(item => item.title.includes(search)) : []
+
+  const paginate = (pageNumber: any) => setCurrentPage(pageNumber)
 
   async function handleDelete(id: string) {
     await api
@@ -109,7 +114,7 @@ export default function Dashboard({ items }: Props) {
             <CreateItem />
           </Dialog.Root>
           <Dialog.Root>
-            <div className="mt-6 flex flex-wrap gap-3">
+            <div className="mt-6 px-0 sm:px-6 lg:px-8 flex flex-wrap gap-3">
               {search.length > 0
                 ? filteredItems?.map((item, i) => (
                     <>
@@ -120,7 +125,8 @@ export default function Dashboard({ items }: Props) {
                         type={item.type}
                         price={item.price}
                         title={item.title}
-                        onEdit={async () => setEditId(item.id)}
+                        onEdit={() => setEditId(item.id)}
+                        onDelete={() => handleDelete(item.id)}
                       />
                     </>
                   ))
@@ -146,6 +152,11 @@ export default function Dashboard({ items }: Props) {
               )}
             </div>
           </Dialog.Root>
+          <Pagination
+            totalCards={items.length}
+            paginate={paginate}
+            cardsPerPage={cardsPerPage}
+          />
         </>
       ) : (
         <>

@@ -45,7 +45,7 @@ export function Navbar() {
                   <div className="ml-10 flex items-baseline space-x-4">
                     {user?.isAdmin
                       ? navigation.map((item, itemIdx) =>
-                          router.asPath === item.route ? (
+                          router.asPath.startsWith(item.route) ? (
                             <Fragment key={itemIdx}>
                               <Link href={item.route}>
                                 <a className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
@@ -67,7 +67,7 @@ export function Navbar() {
                       : navigation
                           .filter(item => item.name !== 'Dashboard')
                           .map((item, itemIdx) =>
-                            router.asPath === item.route ? (
+                            router.asPath.startsWith(item.route) ? (
                               <Fragment key={itemIdx}>
                                 <Link href={item.route}>
                                   <a className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
@@ -176,7 +176,7 @@ export function Navbar() {
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {user?.isAdmin
                 ? navigation.map((item, itemIdx) =>
-                    router.asPath === item.route ? (
+                    router.asPath.startsWith(item.route) ? (
                       <Fragment key={itemIdx}>
                         <Link href={item.route}>
                           <a className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
@@ -245,7 +245,6 @@ export function Navbar() {
                   <Link href={item.route}>
                     <a
                       key={i}
-                      href="#"
                       className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                     >
                       {item.name}
