@@ -3,7 +3,9 @@ module.exports = {
   reactStrictMode: true,
   images: {
     domains: [
-      'www.iplace.com.br'
+      'www.iplace.com.br',
+      'avatars.githubusercontent.com',
+      'media.giphy.com'
     ]
   }
 }

@@ -61,10 +61,12 @@ export default function Dashboard({ items }: Props) {
 
   const indexOfLastCards = currentPage * cardsPerPage
   const indexOfFirstCards = indexOfLastCards - cardsPerPage
-  const currentCards = items.slice(indexOfFirstCards, indexOfLastCards);
+  const currentCards = items.slice(indexOfFirstCards, indexOfLastCards)
 
   const filteredItems =
-    search.length > 0 ? currentCards.filter(item => item.title.includes(search)) : []
+    search.length > 0
+      ? currentCards.filter(item => item.title.includes(search))
+      : []
 
   const paginate = (pageNumber: any) => setCurrentPage(pageNumber)
 
@@ -116,32 +118,28 @@ export default function Dashboard({ items }: Props) {
               <div className="mt-6 px-0 sm:px-6 lg:px-8 flex flex-wrap gap-3">
                 {search.length > 0
                   ? filteredItems?.map((item, i) => (
-                      <>
-                        <Item
-                          key={i}
-                          id={item.id}
-                          imageUrl={item.imageUrl}
-                          type={item.type}
-                          price={item.price}
-                          title={item.title}
-                          onEdit={() => setEditId(item.id)}
-                          onDelete={() => handleDelete(item.id)}
-                        />
-                      </>
+                      <Item
+                        key={item.id}
+                        id={item.id}
+                        imageUrl={item.imageUrl}
+                        type={item.type}
+                        price={item.price}
+                        title={item.title}
+                        onEdit={() => setEditId(item.id)}
+                        onDelete={() => handleDelete(item.id)}
+                      />
                     ))
                   : currentCards?.map((item, i) => (
-                      <>
-                        <Item
-                          key={i}
-                          id={item.id}
-                          imageUrl={item.imageUrl}
-                          type={item.type}
-                          price={item.price}
-                          title={item.title}
-                          onEdit={async () => setEditId(item.id)}
-                          onDelete={() => handleDelete(item.id)}
-                        />
-                      </>
+                      <Item
+                        key={item.id}
+                        id={item.id}
+                        imageUrl={item.imageUrl}
+                        type={item.type}
+                        price={item.price}
+                        title={item.title}
+                        onEdit={async () => setEditId(item.id)}
+                        onDelete={() => handleDelete(item.id)}
+                      />
                     ))}
                 {editId.length > 0 && (
                   <EditItem
