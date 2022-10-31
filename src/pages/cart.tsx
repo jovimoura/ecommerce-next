@@ -92,9 +92,8 @@ export default function CartPage() {
               <div className="mt-6 px-0 sm:px-6 lg:px-8 flex flex-wrap gap-3">
                 {search.length > 0
                   ? filteredItems?.map((item: any, i: number) => (
-                      <div>
+                      <div key={i}>
                         <Item
-                          key={i}
                           id={item.id}
                           imageUrl={item.imageUrl}
                           type={item.type}
@@ -121,9 +120,8 @@ export default function CartPage() {
                       </div>
                     ))
                   : currentCards?.map((item: any, i: number) => (
-                      <div>
+                      <div key={i}>
                         <Item
-                          key={i}
                           id={item.id}
                           imageUrl={item.imageUrl}
                           type={item.type}
