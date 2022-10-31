@@ -88,7 +88,7 @@ export default function CartPage() {
               />
               <Select className="w-auto" items={types} />
             </div>
-            <div className="h-[calc(100vh-258px)]">
+            <div className="h-[calc(100vh-267px)]">
               <div className="mt-6 px-0 sm:px-6 lg:px-8 flex flex-wrap gap-3">
                 {search.length > 0
                   ? filteredItems?.map((item: any, i: number) => (
@@ -157,12 +157,20 @@ export default function CartPage() {
                     ))}
               </div>
             </div>
-            <span>
-              Total:{' '}
-              <span className="font-bold text-xl">
-                {convertToReal(getTotalPrice())}
+            <div className="w-full flex justify-between items-center">
+              <span>
+                Total:{' '}
+                <span className="font-bold text-xl">
+                  {convertToReal(getTotalPrice())}
+                </span>
               </span>
-            </span>
+              <button
+                className="flex w-20 justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
+              focus:ring-offset-zinc-900"
+              >
+                Checkout
+              </button>
+            </div>
             <Pagination
               totalCards={cart?.length}
               paginate={paginate}

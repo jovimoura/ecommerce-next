@@ -20,7 +20,6 @@ const navigation = [
 
 const profile = [
   { name: 'Profile', route: '/profile' },
-  { name: 'My requests', route: '/my-requests' },
   { name: 'Settings', route: '/settings' }
 ]
 

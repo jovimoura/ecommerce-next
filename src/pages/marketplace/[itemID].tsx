@@ -56,8 +56,6 @@ export default function Item({ item }: Props) {
 
   const handleFavorite = () => setIsFavorited(!isFavorited)
 
-  const cart = useSelector((state: any) => state.cart)
-
   const handleBuyItem = () => {
     dispatch(addToCart(item))
   }
