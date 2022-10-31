@@ -73,7 +73,6 @@ export const EditItem = ({ id, items }: EditItemProps) => {
       type,
       imageUrl: file ? await toBase64(file) : imageUrl
     }
-    console.log(obj)
     await api
       .patch(`/api/items/${id}`, obj)
       .then(res => {
