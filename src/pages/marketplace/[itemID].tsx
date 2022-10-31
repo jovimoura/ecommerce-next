@@ -11,7 +11,9 @@ import {
   Star
 } from 'phosphor-react'
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { prisma } from '../../lib/prisma'
+import { addToCart } from '../../redux/cart.slice'
 import { convertToReal } from '../../use-cases/convertToReal'
 
 interface Props {
@@ -48,9 +50,17 @@ export default function Item({ item }: Props) {
   const [isFavorited, setIsFavorited] = useState(false)
   const router = useRouter()
 
+  const dispatch = useDispatch()
+
   const handleBack = () => router.back()
 
   const handleFavorite = () => setIsFavorited(!isFavorited)
+
+  const cart = useSelector((state: any) => state.cart)
+
+  const handleBuyItem = () => {
+    dispatch(addToCart(item))
+  }
 
   return (
     <>
@@ -122,7 +132,10 @@ export default function Item({ item }: Props) {
             </span>
           </div>
           <div className="flex w-full justify-center mt-5">
-            <button className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <button
+              onClick={handleBuyItem}
+              className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
               <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                 <ShoppingCartSimple
                   weight="fill"

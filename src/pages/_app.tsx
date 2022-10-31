@@ -1,9 +1,11 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { SessionProvider } from 'next-auth/react'
+import { useRouter } from 'next/router'
+import { Provider } from 'react-redux'
 import { AuthProvider } from '../contexts/AuthContext'
 import { Navbar } from '../components/Navbar'
-import { useRouter } from 'next/router'
+import store from '../redux/store'
 
 interface CustomPageProps {
   session: any
@@ -18,8 +20,10 @@ function MyApp({
   return (
     <AuthProvider>
       <SessionProvider session={session}>
-        {router.asPath !== '/' ? <Navbar /> : null}
-        <Component {...pageProps} />
+        <Provider store={store}>
+          {router.asPath !== '/' ? <Navbar /> : null}
+          <Component {...pageProps} />
+        </Provider>
       </SessionProvider>
     </AuthProvider>
   )

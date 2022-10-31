@@ -5,5 +5,5 @@ export type ItemProps = {
   type: string
   price: string | number
   onEdit?: () => void
-  onDelete?: () => Promise<void>
+  onDelete?: () => Promise<void> | any
 }

@@ -2,6 +2,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
+import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { ShoppingCartSimple } from 'phosphor-react'
 import { Fragment, useContext } from 'react'
@@ -26,6 +27,15 @@ const profile = [
 export function Navbar() {
   const { user } = useContext(AuthContext)
   const router = useRouter()
+
+  const cart = useSelector((state: any) => state.cart)
+
+  const getItemsCount = () => {
+    return cart.reduce(
+      (accumulator: any, item: any) => accumulator + item.quantity,
+      0
+    )
+  }
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -85,9 +95,25 @@ export function Navbar() {
               </div>
               <div className="hidden md:block">
                 <div className="ml-4 flex items-center md:ml-6">
-                  <button className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                    <span className="sr-only">View notifications</span>
-                    <ShoppingCartSimple weight="fill" size={24} />
+                  <button
+                    onClick={() => router.push('/cart')}
+                    className={`flex bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white`}
+                  >
+                    <span className="sr-only">Cart</span>
+                    <ShoppingCartSimple
+                      weight="fill"
+                      className={
+                        router.asPath.startsWith('/cart') ? 'text-white' : ''
+                      }
+                      size={24}
+                    />
+                    <span
+                      className={`relative bottom-3 ${
+                        router.asPath.startsWith('/cart') ? 'text-white' : ''
+                      }`}
+                    >
+                      {getItemsCount()}
+                    </span>
                   </button>
 
                   <Menu as="div" className="ml-3 relative">
