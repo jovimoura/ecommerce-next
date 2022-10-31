@@ -58,12 +58,13 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 export default function Marketplace({ items }: Props) {
   const [search, setSearch] = useState('')
+  const [typeState, setTypeState] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [cardsPerPage] = useState(4)
 
   const indexOfLastCards = currentPage * cardsPerPage
   const indexOfFirstCards = indexOfLastCards - cardsPerPage
-  const currentCards = items.slice(indexOfFirstCards, indexOfLastCards);
+  const currentCards = items.slice(indexOfFirstCards, indexOfLastCards)
 
   const filteredItems =
     search.length > 0 ? currentCards.filter(item => item.title.includes(search)) : []
@@ -89,16 +90,20 @@ export default function Marketplace({ items }: Props) {
             value={search}
             onChange={e => setSearch(e.target.value)}
           />
-          <Select className="w-auto" items={types} />
+          <Select
+            className="w-auto"
+            items={types}
+            value={typeState}
+            onChange={e => setTypeState(e.target.value)}
+          />
         </div>
         <div className="h-[calc(100vh-229px)]">
           <div className="mt-6 px-0 sm:px-6 lg:px-8 flex flex-wrap gap-3">
             {search.length > 0
               ? filteredItems?.map((item, i) => (
-                  <Link href={`/marketplace/${item.id}`}>
+                  <Link key={i} href={`/marketplace/${item.id}`}>
                     <a>
                       <Item
-                        key={i}
                         id={item.id}
                         imageUrl={item.imageUrl}
                         type={item.type}
@@ -109,10 +114,9 @@ export default function Marketplace({ items }: Props) {
                   </Link>
                 ))
               : currentCards?.map((item, i) => (
-                  <Link href={`/marketplace/${item.id}`}>
+                  <Link key={i} href={`/marketplace/${item.id}`}>
                     <a>
                       <Item
-                        key={i}
                         id={item.id}
                         imageUrl={item.imageUrl}
                         type={item.type}

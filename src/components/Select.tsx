@@ -13,7 +13,7 @@ export const Select = ({ items, className, ...rest }: SelectProps) => {
       {...rest}
     >
       {items.map((item, i) => (
-        <option key={i}>{item.name}</option>
+        <option value={item.value} key={i}>{item.name}</option>
       ))}
     </select>
   )
