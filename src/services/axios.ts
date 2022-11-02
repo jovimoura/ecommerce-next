@@ -5,7 +5,7 @@ export function getAPIClient(ctx?: any) {
   const { 'auth_next-token': token } = parseCookies(ctx)
 
   const api = axios.create({
-    baseURL: 'http://localhost:3000'
+    baseURL: process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000'
   })
 
   api.interceptors.request.use(config => {

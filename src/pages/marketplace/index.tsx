@@ -67,7 +67,9 @@ export default function Marketplace({ items }: Props) {
   const currentCards = items.slice(indexOfFirstCards, indexOfLastCards)
 
   const filteredItems =
-    search.length > 0 ? currentCards.filter(item => item.title.includes(search)) : []
+    search.length > 0
+      ? currentCards.filter(item => item.title.includes(search))
+      : []
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
 
@@ -102,24 +104,24 @@ export default function Marketplace({ items }: Props) {
             {search.length > 0
               ? filteredItems?.map((item, i) => (
                   <Link key={i} href={`/marketplace/${item.id}`}>
-                      <Item
-                        id={item.id}
-                        imageUrl={item.imageUrl}
-                        type={item.type}
-                        price={item.price}
-                        title={item.title}
-                      />
+                    <Item
+                      id={item.id}
+                      imageUrl={item.imageUrl}
+                      type={item.type}
+                      price={item.price}
+                      title={item.title}
+                    />
                   </Link>
                 ))
               : currentCards?.map((item, i) => (
                   <Link key={i} href={`/marketplace/${item.id}`}>
-                      <Item
-                        id={item.id}
-                        imageUrl={item.imageUrl}
-                        type={item.type}
-                        price={item.price}
-                        title={item.title}
-                      />
+                    <Item
+                      id={item.id}
+                      imageUrl={item.imageUrl}
+                      type={item.type}
+                      price={item.price}
+                      title={item.title}
+                    />
                   </Link>
                 ))}
           </div>

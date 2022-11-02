@@ -19,9 +19,7 @@ const navigation = [
   { name: 'About', route: '/about' }
 ]
 
-const profile = [
-  { name: 'Profile', route: '/profile' },
-]
+const profile = [{ name: 'Profile', route: '/profile' }]
 
 export function Navbar() {
   const { user } = useContext(AuthContext)
@@ -213,10 +211,12 @@ export function Navbar() {
                         </Link>
                       </Fragment>
                     ) : (
-                      <Link key={itemIdx} href={item.route}>
-                        <a className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-                          {item.name}
-                        </a>
+                      <Link
+                        className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                        key={itemIdx}
+                        href={item.route}
+                      >
+                        {item.name}
                       </Link>
                     )
                   )
