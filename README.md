@@ -12,6 +12,10 @@
   The project have authentication system with cookies, tokens and nextAuth.
 </p>
 
+
+## OBS: If u wanna run this project localy u will need create one SQLite db on */prisma*
+
+
 <br />
 
 ## Installation
