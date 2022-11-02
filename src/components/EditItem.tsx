@@ -113,7 +113,7 @@ export const EditItem = ({ id, items }: EditItemProps) => {
             <InputFile onChange={handleSetFile} title="Load image" />
           </div>
           <div className="flex flex-col gap-2">
-            <label className="font-semibold" htmlFor="game">
+            <label className="font-semibold" htmlFor="title">
               Title
             </label>
             <input
@@ -127,7 +127,7 @@ export const EditItem = ({ id, items }: EditItemProps) => {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="name">Price</label>
+            <label htmlFor="price">Price</label>
             <input
               className="relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
               id="price"
@@ -139,8 +139,9 @@ export const EditItem = ({ id, items }: EditItemProps) => {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="name">Type</label>
+            <label htmlFor="type">Type</label>
             <Select
+              id='type'
               items={types}
               value={type}
               onChange={e => setType(e.target.value)}

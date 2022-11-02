@@ -11,7 +11,7 @@ import {
   Star
 } from 'phosphor-react'
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { prisma } from '../../lib/prisma'
 import { addToCart } from '../../redux/cart.slice'
 import { convertToReal } from '../../use-cases/convertToReal'
@@ -81,7 +81,7 @@ export default function Item({ item }: Props) {
       </div>
       <div className="flex flex-col md:flex-row gap-5 mx-auto justify-center items-center">
         <div className="w-full md:w-1/2 px-auto flex justify-center items-center">
-          <Image width={350} height={350} src={item.imageUrl} />
+          <Image alt='perfil-photo' width={350} height={350} src={item.imageUrl} />
         </div>
         <div className="w-full md:w-2/5 px-auto flex flex-col justify-center items-left text-gray-900">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">

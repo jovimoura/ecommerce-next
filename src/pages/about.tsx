@@ -17,6 +17,7 @@ export default function About() {
             src={`https://avatars.githubusercontent.com/u/82558597?v=4`}
             width="400"
             height="400"
+            alt='dev-jovimoura'
           />
         </div>
         <div className='w-full md:w-[400px] flex flex-col gap-4 text-gray-900'>
@@ -26,6 +27,7 @@ export default function About() {
               src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif"
               width="28"
               height="28"
+              alt='gif'
             />{' '}
             My name is John Moura.
           </p>

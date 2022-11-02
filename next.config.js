@@ -5,7 +5,8 @@ module.exports = {
     domains: [
       'www.iplace.com.br',
       'avatars.githubusercontent.com',
-      'media.giphy.com'
+      'media.giphy.com',
+      'github.com'
     ]
   }
 }

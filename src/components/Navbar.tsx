@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { ShoppingCartSimple } from 'phosphor-react'
 import { Fragment, useContext } from 'react'
 import { AuthContext } from '../contexts/AuthContext'
+import Image from 'next/image'
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
@@ -20,7 +21,6 @@ const navigation = [
 
 const profile = [
   { name: 'Profile', route: '/profile' },
-  { name: 'Settings', route: '/settings' }
 ]
 
 export function Navbar() {
@@ -56,17 +56,20 @@ export function Navbar() {
                       ? navigation.map((item, itemIdx) =>
                           router.asPath.startsWith(item.route) ? (
                             <Fragment key={itemIdx}>
-                              <Link href={item.route}>
-                                <a className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
-                                  {item.name}
-                                </a>
+                              <Link
+                                className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                                href={item.route}
+                              >
+                                {item.name}
                               </Link>
                             </Fragment>
                           ) : (
-                            <Link key={itemIdx} href={item.route}>
-                              <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                                {item.name}
-                              </a>
+                            <Link
+                              className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                              key={itemIdx}
+                              href={item.route}
+                            >
+                              {item.name}
                             </Link>
                           )
                         )
@@ -75,17 +78,20 @@ export function Navbar() {
                           .map((item, itemIdx) =>
                             router.asPath.startsWith(item.route) ? (
                               <Fragment key={itemIdx}>
-                                <Link href={item.route}>
-                                  <a className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
-                                    {item.name}
-                                  </a>
+                                <Link
+                                  className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                                  href={item.route}
+                                >
+                                  {item.name}
                                 </Link>
                               </Fragment>
                             ) : (
-                              <Link key={itemIdx} href={item.route}>
-                                <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                                  {item.name}
-                                </a>
+                              <Link
+                                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                key={itemIdx}
+                                href={item.route}
+                              >
+                                {item.name}
                               </Link>
                             )
                           )}
@@ -148,15 +154,14 @@ export function Navbar() {
                             {profile.map((item, i) => (
                               <Menu.Item key={i}>
                                 {({ active }) => (
-                                  <Link href={item.route}>
-                                    <a
-                                      className={classNames(
-                                        active ? 'bg-gray-100' : '',
-                                        'block px-4 py-2 text-sm text-gray-700'
-                                      )}
-                                    >
-                                      {item.name}
-                                    </a>
+                                  <Link
+                                    className={classNames(
+                                      active ? 'bg-gray-100' : '',
+                                      'block px-4 py-2 text-sm text-gray-700'
+                                    )}
+                                    href={item.route}
+                                  >
+                                    {item.name}
                                   </Link>
                                 )}
                               </Menu.Item>
@@ -200,10 +205,11 @@ export function Navbar() {
                 ? navigation.map((item, itemIdx) =>
                     router.asPath.startsWith(item.route) ? (
                       <Fragment key={itemIdx}>
-                        <Link href={item.route}>
-                          <a className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
-                            {item.name}
-                          </a>
+                        <Link
+                          className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                          href={item.route}
+                        >
+                          {item.name}
                         </Link>
                       </Fragment>
                     ) : (
@@ -219,17 +225,20 @@ export function Navbar() {
                     .map((item, itemIdx) =>
                       router.asPath === item.route ? (
                         <Fragment key={itemIdx}>
-                          <Link href={item.route}>
-                            <a className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
-                              {item.name}
-                            </a>
+                          <Link
+                            className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                            href={item.route}
+                          >
+                            {item.name}
                           </Link>
                         </Fragment>
                       ) : (
-                        <Link key={itemIdx} href={item.route}>
-                          <a className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-                            {item.name}
-                          </a>
+                        <Link
+                          className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                          key={itemIdx}
+                          href={item.route}
+                        >
+                          {item.name}
                         </Link>
                       )
                     )}
@@ -237,13 +246,13 @@ export function Navbar() {
             <div className="pt-4 pb-3 border-t border-gray-700">
               <div className="flex items-center px-5">
                 <div className="flex-shrink-0">
-                  <img
+                  <Image
                     className="h-10 w-10 rounded-full"
                     src={
                       (user?.avatar_url as string) ||
                       'https://img.icons8.com/external-others-inmotus-design/67/000000/external-User-vkontakte-others-inmotus-design-5.png'
                     }
-                    alt=""
+                    alt="avatar photo"
                   />
                 </div>
                 <div className="ml-3">
@@ -274,10 +283,12 @@ export function Navbar() {
               </div>
               <div className="mt-3 px-2 space-y-1">
                 {profile.map((item, i) => (
-                  <Link key={i} href={item.route}>
-                    <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
-                      {item.name}
-                    </a>
+                  <Link
+                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                    key={i}
+                    href={item.route}
+                  >
+                    {item.name}
                   </Link>
                 ))}
                 <button

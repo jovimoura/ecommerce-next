@@ -102,7 +102,6 @@ export default function Marketplace({ items }: Props) {
             {search.length > 0
               ? filteredItems?.map((item, i) => (
                   <Link key={i} href={`/marketplace/${item.id}`}>
-                    <a>
                       <Item
                         id={item.id}
                         imageUrl={item.imageUrl}
@@ -110,12 +109,10 @@ export default function Marketplace({ items }: Props) {
                         price={item.price}
                         title={item.title}
                       />
-                    </a>
                   </Link>
                 ))
               : currentCards?.map((item, i) => (
                   <Link key={i} href={`/marketplace/${item.id}`}>
-                    <a>
                       <Item
                         id={item.id}
                         imageUrl={item.imageUrl}
@@ -123,7 +120,6 @@ export default function Marketplace({ items }: Props) {
                         price={item.price}
                         title={item.title}
                       />
-                    </a>
                   </Link>
                 ))}
           </div>
