@@ -54,20 +54,19 @@ http://localhost:3000/
 
 ### Desktop:
 
-<img style="width: auto; height: auto " src="./src/assets/readme/print-page-1.png">
+<img style="width: auto; height: auto" src="./public/dash-page.png">
 
 <br >
 
-<img style="width: auto; height: auto " src="./src/assets/readme/print-page-2.png">
-
+<img src='./public/profile-page.png' style='width: auto; height: auto'>
 
 ### Responsive: 
 
-<img src='./src/assets/readme/responsive-page-1.png' style='width: auto; height: auto'>
+<img style="width: auto; height: auto" src="./public/dash-page-responsive.png">
 
 <br >
 
-<img src='./src/assets/readme/responsive-page-2.png' style='width: auto; height: auto'>
+<img src='./public/profile-page-responsive.png' style='width: auto; height: auto'>
 
 <br />
 
