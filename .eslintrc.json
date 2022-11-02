@@ -5,7 +5,7 @@
     "node": true
   },
   "extends": [
-    "plugin:prettier/recommended",
+    "plugin:react/recommended",
     "standard",
     "plugin:@typescript-eslint/recommended",
     "prettier/@typescript-eslint",
@@ -17,7 +17,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["prettier"],
+  "plugins": ["react"],
   "rules": {
     "prettier/prettier": "error",
     "space-before-function-paren": "off",
