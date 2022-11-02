@@ -54,20 +54,17 @@ export function Navbar() {
                       ? navigation.map((item, itemIdx) =>
                           router.asPath.startsWith(item.route) ? (
                             <Fragment key={itemIdx}>
-                              <Link
-                                className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
-                                href={item.route}
-                              >
-                                {item.name}
+                              <Link href={item.route}>
+                                <a className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
+                                  {item.name}
+                                </a>
                               </Link>
                             </Fragment>
                           ) : (
-                            <Link
-                              className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                              key={itemIdx}
-                              href={item.route}
-                            >
-                              {item.name}
+                            <Link key={itemIdx} href={item.route}>
+                              <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                                {item.name}
+                              </a>
                             </Link>
                           )
                         )
@@ -76,20 +73,17 @@ export function Navbar() {
                           .map((item, itemIdx) =>
                             router.asPath.startsWith(item.route) ? (
                               <Fragment key={itemIdx}>
-                                <Link
-                                  className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
-                                  href={item.route}
-                                >
-                                  {item.name}
+                                <Link href={item.route}>
+                                  <a className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
+                                    {item.name}
+                                  </a>
                                 </Link>
                               </Fragment>
                             ) : (
-                              <Link
-                                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                key={itemIdx}
-                                href={item.route}
-                              >
-                                {item.name}
+                              <Link key={itemIdx} href={item.route}>
+                                <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                                  {item.name}
+                                </a>
                               </Link>
                             )
                           )}
@@ -152,14 +146,15 @@ export function Navbar() {
                             {profile.map((item, i) => (
                               <Menu.Item key={i}>
                                 {({ active }) => (
-                                  <Link
-                                    className={classNames(
-                                      active ? 'bg-gray-100' : '',
-                                      'block px-4 py-2 text-sm text-gray-700'
-                                    )}
-                                    href={item.route}
-                                  >
-                                    {item.name}
+                                  <Link href={item.route}>
+                                    <a
+                                      className={classNames(
+                                        active ? 'bg-gray-100' : '',
+                                        'block px-4 py-2 text-sm text-gray-700'
+                                      )}
+                                    >
+                                      {item.name}
+                                    </a>
                                   </Link>
                                 )}
                               </Menu.Item>
@@ -203,20 +198,17 @@ export function Navbar() {
                 ? navigation.map((item, itemIdx) =>
                     router.asPath.startsWith(item.route) ? (
                       <Fragment key={itemIdx}>
-                        <Link
-                          className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
-                          href={item.route}
-                        >
-                          {item.name}
+                        <Link href={item.route}>
+                          <a className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
+                            {item.name}
+                          </a>
                         </Link>
                       </Fragment>
                     ) : (
-                      <Link
-                        className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                        key={itemIdx}
-                        href={item.route}
-                      >
-                        {item.name}
+                      <Link key={itemIdx} href={item.route}>
+                        <a className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                          {item.name}
+                        </a>
                       </Link>
                     )
                   )
@@ -225,20 +217,17 @@ export function Navbar() {
                     .map((item, itemIdx) =>
                       router.asPath === item.route ? (
                         <Fragment key={itemIdx}>
-                          <Link
-                            className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
-                            href={item.route}
-                          >
-                            {item.name}
+                          <Link href={item.route}>
+                            <a className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
+                              {item.name}
+                            </a>
                           </Link>
                         </Fragment>
                       ) : (
-                        <Link
-                          className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                          key={itemIdx}
-                          href={item.route}
-                        >
-                          {item.name}
+                        <Link key={itemIdx} href={item.route}>
+                          <a className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                            {item.name}
+                          </a>
                         </Link>
                       )
                     )}
@@ -283,12 +272,10 @@ export function Navbar() {
               </div>
               <div className="mt-3 px-2 space-y-1">
                 {profile.map((item, i) => (
-                  <Link
-                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-                    key={i}
-                    href={item.route}
-                  >
-                    {item.name}
+                  <Link key={i} href={item.route}>
+                    <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
+                      {item.name}
+                    </a>
                   </Link>
                 ))}
                 <button

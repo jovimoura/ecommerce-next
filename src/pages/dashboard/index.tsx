@@ -115,7 +115,7 @@ export default function Dashboard({ items }: Props) {
               <CreateItem />
             </Dialog.Root>
             <Dialog.Root>
-              <div className="mt-6 px-0 sm:px-6 lg:px-8 flex flex-wrap gap-3">
+              <div className="mt-6 px-0 sm:px-6 lg:px-8 flex flex-wrap gap-3 overflow-auto">
                 {search.length > 0
                   ? filteredItems?.map((item, i) => (
                       <Item

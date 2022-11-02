@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useContext, useState } from 'react'
 import { signIn as getSignIn, getSession } from 'next-auth/react'
 import { AuthContext } from '../contexts/AuthContext'
-import { FacebookLogo, GoogleLogo, GithubLogo, Camera } from 'phosphor-react'
+import { Camera } from 'phosphor-react'
 import { InputFile } from '../components/InputFile'
 import { api } from '../services/api'
 import { toBase64 } from '../use-cases/toBase64'
@@ -186,18 +186,6 @@ const Home: NextPage = () => {
                     Forgot your password?
                   </a>
                 </div>
-              </div>
-
-              <div className="flex justify-between">
-                <button>
-                  <FacebookLogo size={32} color="#121212" />
-                </button>
-                <button>
-                  <GoogleLogo size={32} color="#121212" />
-                </button>
-                <button onClick={() => handleSignIn('github')}>
-                  <GithubLogo size={32} color="#121212" />
-                </button>
               </div>
 
               <div>
