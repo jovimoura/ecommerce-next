@@ -92,8 +92,8 @@ export default function Dashboard({ items }: Props) {
       </Head>
 
       {user?.isAdmin ? (
-        <>
-          <div className="h-[calc(100vh-143px)]">
+        <div className='flex flex-col justify-between'>
+          <div className="h-full md:h-[calc(100vh-143px)]">
             <Dialog.Root>
               <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
                 <div className="flex px-2 sm:px-0 gap-4">
@@ -155,7 +155,7 @@ export default function Dashboard({ items }: Props) {
             paginate={paginate}
             cardsPerPage={cardsPerPage}
           />
-        </>
+        </div>
       ) : (
         <>
           <div className="w-full h-screen flex-1 flex justify-center items-center gap-2">

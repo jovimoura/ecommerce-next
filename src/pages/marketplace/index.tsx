@@ -99,7 +99,7 @@ export default function Marketplace({ items }: Props) {
             onChange={e => setTypeState(e.target.value)}
           />
         </div>
-        <div className="h-[calc(100vh-229px)]">
+        <div className="h-full md:h-[calc(100vh-229px)]">
           <div className="mt-6 px-0 sm:px-6 lg:px-8 flex flex-wrap gap-3">
             {search.length > 0
               ? filteredItems?.map((item, i) => (

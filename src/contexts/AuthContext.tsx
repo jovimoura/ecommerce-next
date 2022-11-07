@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react'
-import { setCookie, parseCookies } from 'nookies'
+import { setCookie, parseCookies, destroyCookie } from 'nookies'
 import Router from 'next/router'
 import { recoverUserInformation, signInRequest } from '../services/auth'
 import { api } from '../services/api'
@@ -20,6 +20,7 @@ interface AuthContextType {
   user: User | null
   isAuthenticated: boolean
   signIn: (data: SignInData) => Promise<{ message: string }>
+  signOut: () => Promise<void>
 }
 
 export const AuthContext = createContext({} as AuthContextType)
@@ -57,6 +58,20 @@ export function AuthProvider({ children }: any) {
     }
   }
 
+  async function signOut() {
+    const { 'auth_next-token': token } = parseCookies()
+
+    if (token) {
+      try {
+        destroyCookie(undefined, 'auth_next-token')
+        Router.push('/')
+      } catch (error) {
+        Router.push('/')
+        console.log('Error signOut: ', error)
+      }
+    }
+  }
+
   useEffect(() => {
     const { 'auth_next-token': token } = parseCookies()
 
@@ -70,7 +85,7 @@ export function AuthProvider({ children }: any) {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   )

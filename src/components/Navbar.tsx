@@ -3,11 +3,12 @@ import { BellIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
-import { useRouter } from 'next/router'
+import { Router, useRouter } from 'next/router'
 import { ShoppingCartSimple } from 'phosphor-react'
 import { Fragment, useContext } from 'react'
 import { AuthContext } from '../contexts/AuthContext'
 import Image from 'next/image'
+import { Loading } from './Loading'
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
@@ -22,7 +23,7 @@ const navigation = [
 const profile = [{ name: 'Profile', route: '/profile' }]
 
 export function Navbar() {
-  const { user } = useContext(AuthContext)
+  const { user, signOut } = useContext(AuthContext)
   const router = useRouter()
 
   const cart = useSelector((state: any) => state.cart)
@@ -119,14 +120,15 @@ export function Navbar() {
                         <div>
                           <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                             <span className="sr-only">Open user menu</span>
-                            <img
-                              className="h-8 w-8 rounded-full"
-                              src={
-                                (user?.avatar_url as string) ||
-                                'https://img.icons8.com/external-others-inmotus-design/67/000000/external-User-vkontakte-others-inmotus-design-5.png'
-                              }
-                              alt=""
-                            />
+                            {user?.avatar_url ? (
+                              <img
+                                className="h-8 w-8 rounded-full"
+                                src={user?.avatar_url}
+                                alt=""
+                              />
+                            ) : (
+                              <Loading />
+                            )}
                           </Menu.Button>
                         </div>
                         <Transition
@@ -161,12 +163,7 @@ export function Navbar() {
                             ))}
                             <Menu.Item>
                               <button
-                                onClick={() =>
-                                  signOut({
-                                    redirect: true,
-                                    callbackUrl: '/'
-                                  })
-                                }
+                                onClick={signOut}
                                 className="block px-4 py-2 text-sm text-gray-700"
                               >
                                 Sign out
@@ -236,6 +233,8 @@ export function Navbar() {
               <div className="flex items-center px-5">
                 <div className="flex-shrink-0">
                   <Image
+                    width={40}
+                    height={40}
                     className="h-10 w-10 rounded-full"
                     src={
                       (user?.avatar_url as string) ||
@@ -279,12 +278,7 @@ export function Navbar() {
                   </Link>
                 ))}
                 <button
-                  onClick={() =>
-                    signOut({
-                      redirect: true,
-                      callbackUrl: '/'
-                    })
-                  }
+                  onClick={signOut}
                   className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                 >
                   Sign out
