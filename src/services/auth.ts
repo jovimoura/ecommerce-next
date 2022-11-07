@@ -14,7 +14,7 @@ const delay = (amount = 750) =>
  * @return { token: String, user: { name: String, email: String, avatar_url: String } }
  */
 
-export async function signInRequest(data: SignInRequestData) {
+export async function signInRequest(data: SignInRequestData): Promise<any> {
   const { email, password } = data
 
   const res = await api.post('/api/login', {
@@ -31,7 +31,7 @@ export async function signInRequest(data: SignInRequestData) {
  * RecoverUser, if browser have a token, this function will be return the user
  * @returns { user: { name: String, email: String, avatar_url: String } }
  */
-export async function recoverUserInformation(token?: string) {
+export async function recoverUserInformation(token?: string): Promise<any> {
   const res = await api.get(`/api/login/${token}`)
 
   await delay()
