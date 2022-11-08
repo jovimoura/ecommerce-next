@@ -3,12 +3,12 @@ import { LockClosedIcon } from '@heroicons/react/20/solid'
 import Head from 'next/head'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useContext, useState } from 'react'
-import { signIn as getSignIn, getSession } from 'next-auth/react'
 import { AuthContext } from '../contexts/AuthContext'
 import { Camera } from 'phosphor-react'
 import { InputFile } from '../components/InputFile'
 import { api } from '../services/api'
 import { toBase64 } from '../use-cases/toBase64'
+import { parseCookies } from 'nookies'
 
 interface FormValues {
   signUpName: string
@@ -18,10 +18,11 @@ interface FormValues {
   password: string
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = await getSession({ req })
+export const getServerSideProps: GetServerSideProps = async (ctx?: any) => {
+  const { 'auth_next-token': token } = parseCookies(ctx)
+  console.log(`token: ${token}`)
 
-  if (session) {
+  if (token) {
     return {
       redirect: {
         destination: '/dashboard',
@@ -75,10 +76,6 @@ const Home: NextPage = () => {
 
   function handleSetFile(e: any) {
     setFile(e.target.files[0])
-  }
-
-  function handleSignIn(type: string) {
-    getSignIn(type)
   }
 
   function handleChangePage() {
