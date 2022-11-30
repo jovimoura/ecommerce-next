@@ -89,7 +89,6 @@ http://localhost:3000/
     <li>UUID</li>
     <li>Prisma</li>
     <li>Axios</li>
-    <li>Axios</li>
 </ul>
 
 <br />
