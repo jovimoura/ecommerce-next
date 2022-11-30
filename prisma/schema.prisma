@@ -6,12 +6,12 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model Users {
-  id String @id @default(uuid())
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 
   name      String
   avatarUrl String
@@ -25,7 +25,7 @@ model Users {
 }
 
 model Items {
-  id String @id @default(uuid())
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 
   title    String
   price    String
