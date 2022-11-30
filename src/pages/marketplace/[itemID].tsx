@@ -17,7 +17,15 @@ import { addToCart } from '../../redux/cart.slice'
 import { convertToReal } from '../../use-cases/convertToReal'
 
 interface Props {
-  item: Items
+  item: {
+    id: string
+    title: string
+    price: string
+    imageUrl: string
+    type: string
+    createdAt: Date
+    updatedAt: Date
+  }
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx?: any) => {
@@ -81,7 +89,12 @@ export default function Item({ item }: Props) {
       </div>
       <div className="flex flex-col md:flex-row gap-5 mx-auto justify-center items-center">
         <div className="w-full md:w-1/2 px-auto flex justify-center items-center">
-          <Image alt='perfil-photo' width={350} height={350} src={item.imageUrl} />
+          <Image
+            alt="perfil-photo"
+            width={350}
+            height={350}
+            src={item.imageUrl}
+          />
         </div>
         <div className="w-full md:w-2/5 px-auto flex flex-col justify-center items-left text-gray-900">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
