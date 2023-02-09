@@ -5,6 +5,8 @@ import { Provider } from "react-redux";
 import { AuthProvider } from "../contexts/AuthContext";
 import { Navbar } from "../components/Navbar";
 import store from "../redux/store";
+import { SWRConfig } from "swr/_internal";
+import { fetcherGraphql } from "../graphql/graphcms";
 
 interface CustomPageProps {
   session: any;
@@ -17,12 +19,14 @@ function MyApp({
   const router = useRouter();
 
   return (
-    <AuthProvider>
-      <Provider store={store}>
-        <Navbar />
-        <Component {...pageProps} />
-      </Provider>
-    </AuthProvider>
+    <SWRConfig value={{ fetcher: fetcherGraphql }}>
+      <AuthProvider>
+        <Provider store={store}>
+          <Navbar />
+          <Component {...pageProps} />
+        </Provider>
+      </AuthProvider>
+    </SWRConfig>
   );
 }
 
