@@ -58,7 +58,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   return {
     props: {
-      items: products,
+      items: products.slice(0, 3).reverse(),
     },
   };
 };
@@ -118,8 +118,13 @@ export default function Marketplace({ items }: Props) {
             </div>
           </div>
         </div>
-        <div className='h-full md:h-[calc(100vh-229px)]'>
-          <div className='mt-6 px-0 sm:px-6 lg:px-8 flex flex-wrap gap-3'>
+        <div className='w-full flex items-center justify-center text-3xl font-bold font-primary leading-5 my-[56px]'>
+          <h1>
+            Nossos <span className='text-indigo-500'>Destaques</span>
+          </h1>
+        </div>
+        <div className='h-full md:h-[calc(100vh-200px)]'>
+          <div className='mt-6 px-0 sm:px-6 lg:px-8 flex flex-wrap justify-around items-center'>
             {items?.map((item, i) => (
               <Item
                 key={i}
