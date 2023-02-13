@@ -5,7 +5,7 @@ import { GithubIcon, InstagramIcon, LinkedinIcon } from "./icons";
 export const Footer = () => {
   return (
     <>
-      <div className='w-full bg-[#FAFAFA] flex text-center md:text-left items-center justify-around py-10'>
+      <div className='w-full bg-[#FAFAFA] flex flex-col md:flex-row gap-10 md:gap-0 text-center md:text-left items-center justify-around py-10'>
         <Link href='/'>
           <div className='flex-shrink-0 flex items-center justify-center gap-2'>
             <Image
@@ -151,7 +151,7 @@ export const Footer = () => {
             rel='noreferrer'
             target='_blank'
           >
-            <div className='flex font-sans font-semibold text-[7px] leading-3 items-center justify-center bg-[#001128] gap-1 w-full h-full uppercase cursor-pointer'>
+            <div className='flex font-sans font-semibold text-[7px] leading-3 items-center justify-center gap-1 w-full h-full uppercase cursor-pointer'>
               <span>DESENVOLVIDO POR John Moura</span>
             </div>
           </a>

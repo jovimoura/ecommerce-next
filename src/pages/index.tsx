@@ -76,7 +76,7 @@ export default function Marketplace({ items }: Props) {
       </Head>
       <div className='w-full flex flex-col'>
         <Slider items={slides} />
-        <div className='mt-7 flex items-center justify-around'>
+        <div className='mt-7 flex flex-col gap-7 md:gap-0 md:flex-row items-center justify-center md:justify-around'>
           <div className='flex items-center gap-3'>
             <div className='p-2 border-2 border-indigo-500 rounded-full'>
               <CreditCard className='text-indigo-500' size={48} />
@@ -123,7 +123,7 @@ export default function Marketplace({ items }: Props) {
             Nossos <span className='text-indigo-500'>Destaques</span>
           </h1>
         </div>
-        <div className='h-full md:h-[calc(100vh-200px)]'>
+        <div className='h-full md:h-[calc(100vh-200px)] overflow-hidden'>
           <div className='mt-6 px-0 sm:px-6 lg:px-8 flex flex-wrap justify-around items-center'>
             {items?.map((item, i) => (
               <Item

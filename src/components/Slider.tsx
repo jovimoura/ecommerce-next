@@ -35,7 +35,7 @@ export const Slider = ({ items }: Props) => {
                 <img
                   src={item.image}
                   alt='image person'
-                  className='rounded w-full h-[472px]'
+                  className='rounded w-full h-[172px] md:h-[472px]'
                 />
               </picture>
             </div>
