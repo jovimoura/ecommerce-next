@@ -16,7 +16,6 @@ function classNames(...classes: any) {
 const navigation = [
   { name: "Home", route: "/" },
   { name: "Produtos", route: "/products" },
-  { name: "About", route: "/about" },
 ];
 
 const profileLogged = [{ name: "Profile", route: "/profile" }];

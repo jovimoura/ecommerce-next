@@ -54,8 +54,11 @@ export const Footer = () => {
             <span className='font-secondary font-normal text-[17px] leading-5 hover:underline mb-[11px]'>
               <Link href='/terms'>Termos de uso</Link>
             </span>
-            <span className='font-secondary font-normal text-[17px] leading-5 hover:underline'>
+            <span className='font-secondary font-normal text-[17px] leading-5 hover:underline mb-[11px]'>
               <Link href='/my-requests'>Meus pedidos</Link>
+            </span>
+            <span className='font-secondary font-normal text-[17px] leading-5 hover:underline'>
+              <Link href='/about'>Sobre nós</Link>
             </span>
           </div>
           <div className='flex flex-col items-center md:items-start justify-start h-full w-full md:w-auto'>

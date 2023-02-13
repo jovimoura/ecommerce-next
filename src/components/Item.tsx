@@ -6,7 +6,7 @@ import { convertToReal } from "../use-cases/convertToReal";
 export const Item = ({ price, title, imageUrl, id }: ItemProps) => {
   return (
     <div
-      className={`shadow cursor-pointer px-4 py-3 h-auto rounded-lg flex flex-col justify-center items-center gap-2 text-gray-900 max-w-[360px] min-h-[370px]`}
+      className={`shadow cursor-pointer px-4 py-3 h-auto rounded-lg flex flex-col justify-center items-center gap-2 text-gray-900 w-full max-w-[360px] min-h-[370px]`}
     >
       <Image src={imageUrl} alt='' width={150} height={162} />
       <h1 className='text-xl font-medium font-primary break-words'>{title}</h1>

@@ -11,7 +11,7 @@ export default function About() {
           href='https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg'
         />
       </Head>
-      <div className='flex mx-auto justify-around w-4/5 flex-col md:flex-row'>
+      <div className='flex mx-auto justify-around w-4/5 h-full md:h-screen flex-col md:flex-row'>
         <div>
           <Image
             src={`https://avatars.githubusercontent.com/u/82558597?v=4`}
