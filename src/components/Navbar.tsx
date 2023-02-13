@@ -14,7 +14,8 @@ function classNames(...classes: any) {
 }
 
 const navigation = [
-  { name: "Marketplace", route: "/" },
+  { name: "Home", route: "/" },
+  { name: "Produtos", route: "/products" },
   { name: "About", route: "/about" },
 ];
 
@@ -54,7 +55,7 @@ export function Navbar() {
                       alt='Workflow'
                     />
                     <span className='text-xl font-medium text-indigo-500 font-primary'>
-                      J.M Shop
+                      J.M. Shop
                     </span>
                   </div>
                 </Link>

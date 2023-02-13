@@ -1,48 +1,30 @@
-import * as Dialog from "@radix-ui/react-dialog";
-import { NotePencil, Trash } from "phosphor-react";
+import Image from "next/image";
+import Link from "next/link";
 import { ItemProps } from "../@types/item";
 import { convertToReal } from "../use-cases/convertToReal";
 
-export const Item = ({
-  onDelete,
-  onEdit,
-  price,
-  title,
-  imageUrl,
-}: ItemProps) => {
+export const Item = ({ price, title, imageUrl, id }: ItemProps) => {
   return (
     <div
-      className={`shadow-md p-2 w-[190px] min-h-[238px] h-[262px] max-w-[189px] md:max-w-[250px] rounded-lg flex flex-col justify-center items-center gap-2 text-gray-900 ${
-        !onDelete || !onEdit ? "h-[238px]" : ""
-      }`}
+      className={`shadow cursor-pointer px-4 py-3 h-auto rounded-lg flex flex-col justify-center items-center gap-2 text-gray-900`}
     >
-      <div className='w-full flex justify-end gap-2'>
-        {onDelete && (
-          <Trash
-            onClick={onDelete}
-            size={24}
-            className='cursor-pointer text-gray-700 hover:text-indigo-600'
-          />
-        )}
-
-        {onEdit && (
-          <Dialog.Trigger>
-            <NotePencil
-              onClick={onEdit}
-              size={24}
-              className='cursor-pointer text-gray-700 hover:text-indigo-600'
-            />
-          </Dialog.Trigger>
-        )}
+      <Image src={imageUrl} alt='' width={150} height={162} />
+      <h1 className='text-xl font-medium font-primary'>{title}</h1>
+      <div className='font-secondary text-indigo-500 font-medium text-sm gap-1 flex flex-col w-full justify-start'>
+        <span className='font-light text-lg'>{convertToReal(price)}</span>
+        <span>Em até 10x de {convertToReal((price as number) / 10)}</span>
+        <span className=''>
+          {convertToReal((price as number) - 50)} No boleto ou pix
+        </span>
       </div>
-      <img
-        src={imageUrl}
-        alt=''
-        placeholder='blur'
-        className='w-[150px] h-full'
-      />
-      <h2 className='text-sm'>{title}</h2>
-      <h1 className='font-bold text-xl'>{convertToReal(price)}</h1>
+      <div className='w-full flex justify-start'>
+        <Link
+          href={`/products/${id}`}
+          className='w-[128px] flex items-center justify-center py-2 px-9 rounded-[50px] font-normal leading-6 text-white bg-indigo-500 hover:bg-indigo-400 transition-colors'
+        >
+          Comprar
+        </Link>
+      </div>
     </div>
   );
 };

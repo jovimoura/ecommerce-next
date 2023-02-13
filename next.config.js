@@ -8,6 +8,7 @@ module.exports = {
       "media.giphy.com",
       "github.com",
       "img.icons8.com",
+      "media.graphassets.com",
     ],
   },
 };

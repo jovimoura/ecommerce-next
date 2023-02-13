@@ -7,6 +7,7 @@ import { Navbar } from "../components/Navbar";
 import store from "../redux/store";
 import { SWRConfig } from "swr/_internal";
 import { fetcherGraphql } from "../graphql/graphcms";
+import { Footer } from "../components/Footer";
 
 interface CustomPageProps {
   session: any;
@@ -24,6 +25,7 @@ function MyApp({
         <Provider store={store}>
           <Navbar />
           <Component {...pageProps} />
+          <Footer />
         </Provider>
       </AuthProvider>
     </SWRConfig>
