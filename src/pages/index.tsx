@@ -74,7 +74,7 @@ export default function Marketplace({ items }: Props) {
           type='image/x-icon'
         />
       </Head>
-      <div className='w-full flex flex-col'>
+      <div className='w-full flex flex-col py-10'>
         <Slider items={slides} />
         <div className='mt-7 flex flex-col gap-7 md:gap-0 md:flex-row items-center justify-center md:justify-around'>
           <div className='flex items-center gap-3'>

@@ -1,8 +1,4 @@
-import {
-  GraphQLClient,
-  RequestDocument,
-  RequestOptions,
-} from "graphql-request";
+import { GraphQLClient, RequestDocument } from "graphql-request";
 
 export const graphcms = new GraphQLClient(
   process.env.HYPERGRAPH_API_URL as string

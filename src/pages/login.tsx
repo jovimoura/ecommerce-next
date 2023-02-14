@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx?: any) => {
   if (token) {
     return {
       redirect: {
-        destination: "/dashboard",
+        destination: "/my-account",
         permanent: false,
       },
     };
@@ -90,14 +90,14 @@ const Login: NextPage = () => {
   return (
     <>
       <Head>
+        <title>Login - J.M. Shop</title>
         <link
           rel='shortcut icon'
-          href='https://img.icons8.com/external-kmg-design-flat-kmg-design/32/000000/external-user-back-to-school-kmg-design-flat-kmg-design.png'
+          href='https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg'
           type='image/x-icon'
         />
-        <title>Login</title>
       </Head>
-      <div className='flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
+      <div className='flex min-h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
         <div className='w-full max-w-md space-y-8'>
           <div>
             <Image
@@ -108,19 +108,19 @@ const Login: NextPage = () => {
               alt='Your Company'
             />
             <h2 className='mt-6 text-center text-3xl font-bold tracking-tight text-gray-900'>
-              {page === "signIn" ? "Sign in to your account" : "Sign Up"}
+              {page === "signIn" ? "Entre na sua Conta" : "Crie uma conta!"}
             </h2>
             <div className='w-full flex justify-end'>
               <span className='text-xs mr-2'>
                 {page === "signIn"
-                  ? "Need to create an account?"
-                  : "Already have an account?"}
+                  ? "Precisa criar uma conta?"
+                  : "Já possui uma conta?"}
               </span>
               <button
                 onClick={handleChangePage}
                 className='text-xs underline text-blue-600 cursor-pointer'
               >
-                {page === "signIn" ? "Sign Up" : "Login"}
+                {page === "signIn" ? "Criar Conta" : "Login"}
               </button>
             </div>
           </div>
@@ -133,7 +133,7 @@ const Login: NextPage = () => {
               <div className='rounded-md shadow-sm'>
                 <div>
                   <label htmlFor='email-address' className='sr-only'>
-                    Email address
+                    E-mail
                   </label>
                   <input
                     className='relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
@@ -141,7 +141,7 @@ const Login: NextPage = () => {
                     type='email'
                     required
                     autoComplete='email'
-                    placeholder='Email address'
+                    placeholder='E-mail'
                     {...register("email")}
                   />
                 </div>
@@ -157,7 +157,7 @@ const Login: NextPage = () => {
                     type='password'
                     autoComplete='current-password'
                     required
-                    placeholder='Password'
+                    placeholder='Senha'
                   />
                 </div>
               </div>
@@ -174,7 +174,7 @@ const Login: NextPage = () => {
                     htmlFor='remember-me'
                     className='ml-2 block text-sm text-gray-900'
                   >
-                    Remember me
+                    Lembre-se de mim
                   </label>
                 </div>
 
@@ -183,7 +183,7 @@ const Login: NextPage = () => {
                     href='#'
                     className='font-medium text-indigo-600 hover:text-indigo-500'
                   >
-                    Forgot your password?
+                    Esqueceu sua senha?
                   </a>
                 </div>
               </div>
@@ -199,7 +199,7 @@ const Login: NextPage = () => {
                       aria-hidden='true'
                     />
                   </span>
-                  Sign in
+                  Entrar
                 </button>
               </div>
             </form>
@@ -219,12 +219,12 @@ const Login: NextPage = () => {
                         name='signUpName'
                         type='text'
                         required
-                        placeholder='Full Name'
+                        placeholder='Nome Completo'
                       />
                     </div>
                     <div className='mb-2'>
                       <label htmlFor='email-address' className=''>
-                        Email address
+                        E-mail
                       </label>
                       <input
                         {...register("signUpEmail")}
@@ -234,12 +234,12 @@ const Login: NextPage = () => {
                         type='email'
                         autoComplete='email'
                         required
-                        placeholder='Email address'
+                        placeholder='E-mail'
                       />
                     </div>
                     <div>
                       <label htmlFor='password' className=''>
-                        Password
+                        Senha
                       </label>
                       <input
                         {...register("signUpPassword")}
@@ -249,7 +249,7 @@ const Login: NextPage = () => {
                         type='password'
                         autoComplete='current-password'
                         required
-                        placeholder='Password'
+                        placeholder='Senha'
                       />
                     </div>
                   </div>
@@ -269,12 +269,12 @@ const Login: NextPage = () => {
                       <div className='w-[165px] h-[165px] rounded-full bg-zinc-100 flex items-center justify-center gap-1'>
                         <Camera className='w-6 h-6' />
                         <span className='font-bold text-base text-center'>
-                          Your Photo
+                          Foto de Perfil
                         </span>
                       </div>
                     )}
                     <InputFile
-                      title='Select Perfil Image'
+                      title='Selecione uma foto de Perfil'
                       accept='image/*'
                       onChange={handleSetFile}
                     />
@@ -286,7 +286,7 @@ const Login: NextPage = () => {
                   type='submit'
                   className='group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
                 >
-                  Sign Up
+                  Criar Conta
                 </button>
               </div>
             </form>
