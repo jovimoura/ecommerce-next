@@ -103,7 +103,7 @@ export default function ProductItem({ item }: Props) {
           <div className='w-full md:w-2/5 px-auto flex flex-col justify-center items-left text-gray-900'>
             <div className='flex flex-col md:flex-row items-center justify-between gap-8'>
               <div>
-                <h1 className='text-4xl font-primary leading-2 font-bold'>
+                <h1 className='text-2xl md:text-4xl font-primary leading-2 font-bold'>
                   {item.name}
                 </h1>
                 <div className='mt-3 flex gap-2 items-center justify-left'>
@@ -114,7 +114,7 @@ export default function ProductItem({ item }: Props) {
               </div>
             </div>
             <div className='flex flex-col mt-5 pl-5 md:pl-0'>
-              <h3 className='text-5xl font-bold'>
+              <h3 className='text-3xl md:text-5xl font-bold'>
                 {convertToReal(item.price)}{" "}
                 <span className='text-lg font-medium'>No boleto ou PIX</span>
               </h3>
