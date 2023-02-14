@@ -19,7 +19,7 @@ export const feedbackTypes = {
     },
   },
   OTHER: {
-    title: "Outror",
+    title: "Outro",
     image: {
       src: "/icons/thought.svg",
       alt: "image of a cloud",

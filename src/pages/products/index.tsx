@@ -71,7 +71,7 @@ export default function Products({ items }: Props) {
           <h1 className='font-primary leading-5 text-4xl font-bold'>Loja</h1>
         </div>
         <div className='px-10 py-5 w-full flex flex-col justify-center items-center'>
-          <div className='w-full flex items-center justify-center gap-5 mb-5'>
+          <div className='w-full flex items-center justify-center gap-5 mb-5 flex-wrap'>
             <Input
               placeholder='Pesquise o nome do item...'
               value={search}

@@ -16,6 +16,7 @@ function classNames(...classes: any) {
 const navigation = [
   { name: "Home", route: "/" },
   { name: "Produtos", route: "/products" },
+  { name: "Fale Conosco", route: "/talk" },
 ];
 
 const profileLogged = [{ name: "Profile", route: "/profile" }];
@@ -166,18 +167,16 @@ export function Navbar() {
                   </Menu>
                   <button
                     onClick={() => router.push("/cart")}
-                    className={`flex bg-transparent p-1 rounded-full text-indigo-500 hover:text-indigo-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent focus:ring-white transition-colors`}
+                    className={`flex bg-transparent p-1 rounded-full text-indigo-500 hover:text-indigo-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent focus:ring-white transition-colors ${
+                      router.asPath === "/cart" ? "text-indigo-300" : ""
+                    }`}
                   >
                     <span className='sr-only'>Cart</span>
-                    <ShoppingCartSimple
-                      weight='fill'
-                      color='#6366f1'
-                      size={24}
-                    />
+                    <ShoppingCartSimple weight='fill' size={24} />
                     <span
                       className={`relative bottom-3 ${
                         router.asPath.startsWith("/cart")
-                          ? "text-indigo-500"
+                          ? "text-indigo-300"
                           : ""
                       }`}
                     >
@@ -246,7 +245,10 @@ export function Navbar() {
                       {user?.email}
                     </div>
                   </div>
-                  <button className='ml-auto bg-transparent flex-shrink-0 p-1 rounded-full text-indigo-500 hover:text-indigo-400 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent focus:ring-white'>
+                  <button
+                    onClick={() => router.push("/cart")}
+                    className='ml-auto bg-transparent flex-shrink-0 p-1 rounded-full text-indigo-500 hover:text-indigo-400 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent focus:ring-white'
+                  >
                     <span className='sr-only'>Cart</span>
                     <ShoppingCartSimple weight='fill' size={24} />
                     <span>{getItemsCount()}</span>

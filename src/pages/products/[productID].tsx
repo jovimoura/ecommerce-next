@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import {
   CaretLeft,
   Heart,
+  Minus,
+  Plus,
   ShareNetwork,
   ShoppingCartSimple,
   Star,
@@ -55,14 +57,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx?: any) => {
 };
 
 export default function ProductItem({ item }: Props) {
-  const [isFavorited, setIsFavorited] = useState(false);
+  const [viewDescription, setViewDescription] = useState(false);
   const router = useRouter();
 
   const dispatch = useDispatch();
 
   const handleBack = () => router.back();
 
-  const handleFavorite = () => setIsFavorited(!isFavorited);
+  const handleViewDescription = () => {
+    setViewDescription(!viewDescription);
+  };
 
   const handleBuyItem = () => {
     dispatch(addToCart(item));
@@ -71,93 +75,99 @@ export default function ProductItem({ item }: Props) {
   return (
     <>
       <Head>
-        <title>{item.name}</title>
+        <title>{item.name} - J.M. Shop</title>
         <link
           rel='shortcut icon'
           href='https://img.icons8.com/fluency/48/000000/shopping-cart.png'
           type='image/x-icon'
         />
       </Head>
-      <div className='pl-0 md:pl-5 pt-3'>
-        <button
-          className='flex gap-2 items-center text-2xl text-gray-900 font-bold hover:text-gray-700'
-          onClick={handleBack}
-        >
-          <CaretLeft weight='bold' size={28} />
-          Back
-        </button>
-      </div>
-      <div className='flex flex-col md:flex-row gap-5 mx-auto justify-center items-center'>
-        <div className='w-full md:w-1/2 px-auto flex justify-center items-center'>
-          <Image
-            alt='perfil-photo'
-            width={350}
-            height={350}
-            src={item.image.url}
-          />
+      <div className='h-full md:min-h-[calc(100vh-110px)]'>
+        <div className='pl-0 md:pl-5 pt-3 font-sans'>
+          <button
+            className='flex gap-2 items-center text-2xl text-gray-900 font-bold hover:text-indigo-500 transition-colors'
+            onClick={handleBack}
+          >
+            <CaretLeft weight='bold' size={28} />
+          </button>
         </div>
-        <div className='w-full md:w-2/5 px-auto flex flex-col justify-center items-left text-gray-900'>
-          <div className='flex flex-col md:flex-row items-center justify-between gap-8'>
-            <div>
-              <h1 className='text-3xl font-bold'>{item.name}</h1>
-              <div className='mt-3 flex gap-2 items-center justify-left'>
-                <span className='text-sm font-extralight'>
-                  Ref: {item.id.substring(0, 6).toUpperCase()}
-                </span>
-                <div className='flex gap-1'>
-                  <Star weight='fill' size={18} className='text-yellow-300' />
-                  <Star weight='fill' size={18} className='text-yellow-300' />
-                  <Star weight='fill' size={18} className='text-yellow-300' />
-                  <Star weight='fill' size={18} className='text-yellow-300' />
-                  <Star weight='fill' size={18} className='text-yellow-300' />
+        <div className='flex flex-col md:flex-row gap-5 mx-auto justify-center items-center font-sans'>
+          <div className='w-full md:w-1/2 px-auto flex justify-center items-center'>
+            <Image
+              alt='perfil-photo'
+              width={350}
+              height={350}
+              src={item.image.url}
+            />
+          </div>
+          <div className='w-full md:w-2/5 px-auto flex flex-col justify-center items-left text-gray-900'>
+            <div className='flex flex-col md:flex-row items-center justify-between gap-8'>
+              <div>
+                <h1 className='text-4xl font-primary leading-2 font-bold'>
+                  {item.name}
+                </h1>
+                <div className='mt-3 flex gap-2 items-center justify-left'>
+                  <span className='text-sm font-extralight'>
+                    Ref: {item.id.substring(0, 6).toUpperCase()}
+                  </span>
                 </div>
               </div>
             </div>
-            <div className='w-full flex flex-row md:flex-col pl-5 md:pl-0'>
-              <button onClick={handleFavorite}>
-                <Heart
-                  weight={isFavorited ? "fill" : "bold"}
-                  size={32}
-                  className='text-red-600 hover:text-red-500'
-                />
-              </button>
-              <button>
-                <ShareNetwork
-                  weight='fill'
-                  size={32}
-                  className='text-gray-500 hover:text-gray-400'
-                />
+            <div className='flex flex-col mt-5 pl-5 md:pl-0'>
+              <h3 className='text-5xl font-bold'>
+                {convertToReal(item.price)}{" "}
+                <span className='text-lg font-medium'>No boleto ou PIX</span>
+              </h3>
+              <span>
+                ou <span className='font-bold'>10x</span> de{" "}
+                <span className='font-bold'>
+                  {convertToReal(item.price / 10)}
+                </span>
+              </span>
+            </div>
+            <div className='flex w-full justify-center mt-5'>
+              <button
+                onClick={handleBuyItem}
+                className='group relative flex w-full justify-center rounded-md border border-transparent leading-5 bg-indigo-600 py-3 px-4 text-lg font-semibold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+              >
+                <div className='absolute inset-y-0 left-0 flex items-center pl-3'>
+                  <ShoppingCartSimple
+                    weight='fill'
+                    size={32}
+                    className='text-indigo-400'
+                  />
+                </div>
+                Adicionar ao carrinho
               </button>
             </div>
-          </div>
-          <div className='flex flex-col mt-5 pl-5 md:pl-0'>
-            <h3 className='text-5xl font-bold'>
-              {convertToReal(item.price)}{" "}
-              <span className='text-lg font-normal'>in cash</span>
-            </h3>
-            <span>
-              or <span className='font-bold'>10x</span> of{" "}
-              <span className='font-bold'>
-                {convertToReal(item.price / 10)}
-              </span>
-            </span>
-          </div>
-          <div className='flex w-full justify-center mt-5'>
             <button
-              onClick={handleBuyItem}
-              className='group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+              className={`mt-5 w-full flex py-3 px-4 items-center justify-start gap-4 border-b border-b-indigo-500 font-bold font-primary ${
+                viewDescription ? "text-indigo-500" : ""
+              }`}
+              onClick={handleViewDescription}
             >
-              <div className='absolute inset-y-0 left-0 flex items-center pl-3'>
-                <ShoppingCartSimple
-                  weight='fill'
-                  size={32}
-                  className='text-indigo-400'
-                />
-              </div>
-              Add on cart
+              {!viewDescription ? (
+                <Plus size={16} weight='bold' />
+              ) : (
+                <Minus size={16} weight='bold' className='text-indigo-500' />
+              )}
+              Descrição
             </button>
           </div>
         </div>
+        {viewDescription ? (
+          <div className='mt-5 w-full px-5 flex flex-col items-end justify-end '>
+            <div className='w-full md:w-2/5 px-auto'>
+              <h1 className='font-primary font-bold leading-5 text-xl mb-4'>
+                Descrição do produto
+              </h1>
+              <div
+                dangerouslySetInnerHTML={{ __html: item?.description?.html }}
+                className='w-full font-sans text-sm text-gray-600'
+              />
+            </div>
+          </div>
+        ) : null}
       </div>
     </>
   );

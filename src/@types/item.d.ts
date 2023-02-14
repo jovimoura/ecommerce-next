@@ -4,6 +4,7 @@ export type ItemProps = {
   title: string;
   type: string;
   price: string | number;
+  onDelete?: () => Promise<void> | any;
 };
 
 export type Product = {

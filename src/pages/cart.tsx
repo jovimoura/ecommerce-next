@@ -2,6 +2,8 @@ import Head from "next/head";
 import { Minus, Plus } from "phosphor-react";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Product } from "../@types/item";
+import { Input } from "../components/Input";
 import { Item } from "../components/Item";
 import { Pagination } from "../components/Pagination";
 import { Select } from "../components/Select";
@@ -14,7 +16,7 @@ import { convertToReal } from "../use-cases/convertToReal";
 
 const types = [
   {
-    name: "Select type",
+    name: "Tipo",
     value: "",
   },
   {
@@ -28,10 +30,6 @@ const types = [
   {
     name: "Mac",
     value: "mac",
-  },
-  {
-    name: "Apple Watch",
-    value: "apple_watch",
   },
 ];
 
@@ -49,7 +47,7 @@ export default function CartPage() {
 
   const filteredItems =
     search.length > 0
-      ? currentCards.filter((item: any) => item.title.includes(search))
+      ? currentCards.filter((item: Product) => item.name.includes(search))
       : [];
 
   const getTotalPrice = () => {
@@ -71,7 +69,7 @@ export default function CartPage() {
           type='image/x-icon'
         />
       </Head>
-      <div>
+      <div className='font-sans'>
         {cart.length === 0 ? (
           <div className='h-[calc(100vh-65px)] flex flex-1 justify-center items-center flex-col'>
             <h1 className='text-2xl font-semibold'>Your Cart is Empty!</h1>
@@ -79,42 +77,45 @@ export default function CartPage() {
         ) : (
           <div className='max-w-7xl mx-auto sm:px-6 lg:px-8'>
             <div className='flex px-2 pt-6 sm:px-0 gap-4'>
-              <input
+              <Input
                 type='text'
-                className='w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
-                placeholder='Search item...'
+                placeholder='Procure pelo nome do item...'
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
               <Select className='w-auto' items={types} />
             </div>
-            <div className='h-[calc(100vh-267px)]'>
+            <div className='h-[calc(100vh-80px)] w-full flex items-center justify-center md:justify-start'>
               <div className='mt-6 px-0 sm:px-6 lg:px-8 flex flex-wrap gap-3'>
                 {search.length > 0
                   ? filteredItems?.map((item: any, i: number) => (
                       <div key={i}>
                         <Item
                           id={item.id}
-                          imageUrl={item.imageUrl}
-                          type={item.type}
                           price={item.price}
-                          title={item.title}
+                          key={i}
+                          imageUrl={item.image.url}
+                          type={item.categorie}
+                          title={item.name}
                         />
-                        <div className='flex'>
+                        <div className='flex justify-between items-center mt-4'>
                           <button
+                            className='bg-indigo-500 rounded-full h-6 w-6 flex items-center justify-center text-white hover:bg-indigo-300 transition-colors'
                             onClick={() => dispatch(incrementQuantity(item.id))}
                           >
-                            +
+                            <Plus size={20} />
                           </button>
+                          <span className='semi-bold'>
+                            Quantidade:{" "}
+                            <span className='font-bold text-xl'>
+                              {item.quantity}
+                            </span>
+                          </span>
                           <button
+                            className='bg-indigo-500 rounded-full h-6 w-6 flex items-center justify-center text-white hover:bg-indigo-300 transition-colors'
                             onClick={() => dispatch(decrementQuantity(item.id))}
                           >
-                            -
-                          </button>
-                          <button
-                            onClick={() => dispatch(removeFromCart(item.id))}
-                          >
-                            x
+                            <Minus size={20} />
                           </button>
                         </div>
                       </div>
@@ -123,29 +124,30 @@ export default function CartPage() {
                       <div key={i}>
                         <Item
                           id={item.id}
-                          imageUrl={item.imageUrl}
-                          type={item.type}
                           price={item.price}
-                          title={item.title}
+                          key={i}
+                          imageUrl={item.image.url}
+                          type={item.categorie}
+                          title={item.name}
                           onDelete={async () =>
                             dispatch(removeFromCart(item.id))
                           }
                         />
-                        <div className='flex justify-between items-center mt-1'>
+                        <div className='flex justify-between items-center mt-4'>
                           <button
-                            className='bg-gray-900 h-6 w-6 flex items-center justify-center text-white hover:bg-gray-700'
+                            className='bg-indigo-500 rounded-full h-6 w-6 flex items-center justify-center text-white hover:bg-indigo-300 transition-colors'
                             onClick={() => dispatch(incrementQuantity(item.id))}
                           >
                             <Plus size={20} />
                           </button>
                           <span className='semi-bold'>
-                            Qtd:{" "}
+                            Quantidade:{" "}
                             <span className='font-bold text-xl'>
                               {item.quantity}
                             </span>
                           </span>
                           <button
-                            className='bg-gray-900 h-6 w-6 flex items-center justify-center text-white hover:bg-gray-700'
+                            className='bg-indigo-500 rounded-full h-6 w-6 flex items-center justify-center text-white hover:bg-indigo-300 transition-colors'
                             onClick={() => dispatch(decrementQuantity(item.id))}
                           >
                             <Minus size={20} />
@@ -156,17 +158,17 @@ export default function CartPage() {
               </div>
             </div>
             <div className='w-full flex justify-between items-center'>
-              <span>
+              <span className='font-bold text-lg'>
                 Total:{" "}
-                <span className='font-bold text-xl'>
+                <span className='font-bold text-2xl text-indigo-500'>
                   {convertToReal(getTotalPrice())}
                 </span>
               </span>
               <button
-                className='flex w-20 justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
+                className='flex justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-lg leading-5 font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
               focus:ring-offset-zinc-900'
               >
-                Checkout
+                Finalizar compra
               </button>
             </div>
             <Pagination
