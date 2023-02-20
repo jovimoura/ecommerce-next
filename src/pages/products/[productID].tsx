@@ -69,6 +69,7 @@ export default function ProductItem({ item }: Props) {
   };
 
   const handleBuyItem = () => {
+    alert("Item adicionado no carrinho!");
     dispatch(addToCart(item));
   };
 

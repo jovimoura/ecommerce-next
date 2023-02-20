@@ -19,10 +19,10 @@ const navigation = [
   { name: "Fale Conosco", route: "/talk" },
 ];
 
-const profileLogged = [{ name: "Profile", route: "/profile" }];
+const profileLogged = [{ name: "Perfil", route: "/profile" }];
 const loginOptions = [
-  { name: "Criar Conta", route: "/login" },
-  { name: "Login", route: "/login" },
+  { name: "Criar Conta", route: "/login?type=createAcc" },
+  { name: "Login", route: "/login?type=login" },
 ];
 
 export function Navbar() {
@@ -92,12 +92,12 @@ export function Navbar() {
                         <div>
                           <Menu.Button className='max-w-xs bg-transparent rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'>
                             <span className='sr-only'>Open user menu</span>
-                            {user?.name ? (
+                            {user?.avatarUrl ? (
                               <Image
                                 width={32}
                                 height={32}
                                 className='h-8 w-8 rounded-full'
-                                src={user?.avatar_url as string}
+                                src={user?.avatarUrl as string}
                                 alt=''
                               />
                             ) : (
@@ -230,7 +230,7 @@ export function Navbar() {
                         width={32}
                         height={32}
                         className='h-8 w-8 rounded-full'
-                        src={user?.avatar_url as string}
+                        src={user?.avatarUrl as string}
                         alt=''
                       />
                     ) : (

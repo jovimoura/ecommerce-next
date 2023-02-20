@@ -1,12 +1,9 @@
-import { api } from './api'
+import { api } from "./api";
 
 type SignInRequestData = {
-  email: string
-  password: string
-}
-
-const delay = (amount = 750) =>
-  new Promise(resolve => setTimeout(resolve, amount))
+  email: string;
+  password: string;
+};
 
 /**
  * SignIn function
@@ -15,16 +12,22 @@ const delay = (amount = 750) =>
  */
 
 export async function signInRequest(data: SignInRequestData): Promise<any> {
-  const { email, password } = data
+  const { email, password } = data;
 
-  const res = await api.post('/api/login', {
-    email,
-    password
-  })
+  const res = await api.post(
+    "/api/login",
+    {
+      email,
+      password,
+    }
+    // {
+    //   headers: {
+    //     Authorization: "teste",
+    //   },
+    // }
+  );
 
-  await delay()
-
-  return res.data
+  return res.data;
 }
 
 /**
@@ -32,9 +35,7 @@ export async function signInRequest(data: SignInRequestData): Promise<any> {
  * @returns { user: { name: String, email: String, avatar_url: String } }
  */
 export async function recoverUserInformation(token?: string): Promise<any> {
-  const res = await api.get(`/api/login/${token}`)
+  const res = await api.get(`/api/login/${token}`);
 
-  await delay()
-
-  return res
+  return res;
 }

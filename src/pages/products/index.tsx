@@ -68,7 +68,9 @@ export default function Products({ items }: Props) {
       </Head>
       <div className='w-full flex flex-col min-h-screen'>
         <div className='w-full py-10 flex items-center justify-center bg-indigo-500 text-white mt-4'>
-          <h1 className='font-primary leading-5 text-4xl font-bold'>Loja</h1>
+          <h1 className='font-primary leading-5 text-4xl font-bold'>
+            Nossa Loja
+          </h1>
         </div>
         <div className='px-10 py-5 w-full flex flex-col justify-center items-center'>
           <div className='w-full flex items-center justify-center gap-5 mb-5 flex-wrap'>

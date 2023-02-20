@@ -59,13 +59,19 @@ export default function CartPage() {
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+  const handleFinishBuy = () => {
+    alert(
+      "Este website é apenas um mostruário, logo não há como comprar nada, mas fico feliz com sua visita! 😃"
+    );
+  };
+
   return (
     <>
       <Head>
-        <title>Cart</title>
+        <title>Cart - J.M. Shop</title>
         <link
           rel='shortcut icon'
-          href='https://img.icons8.com/fluency/48/000000/shopping-cart.png'
+          href='https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg'
           type='image/x-icon'
         />
       </Head>
@@ -165,6 +171,7 @@ export default function CartPage() {
                 </span>
               </span>
               <button
+                onClick={handleFinishBuy}
                 className='flex justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-lg leading-5 font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
               focus:ring-offset-zinc-900'
               >

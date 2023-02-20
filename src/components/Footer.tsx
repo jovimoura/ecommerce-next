@@ -30,7 +30,7 @@ export const Footer = () => {
               <b>+55 (21) 9849547-53</b>
             </span>
             <span className='font-secondary font-normal text-[17px] leading-5 hover:underline mb-5'>
-              Email: <br />
+              E-mail: <br />
               <b>joaovictors.mouraa@gmail.com</b>
             </span>
             <h1 className='font-primary font-bold text-lg leading-6 mb-[26px] uppercase'>
@@ -49,10 +49,10 @@ export const Footer = () => {
               <Link href='/talk'>Fale conosco</Link>
             </span>
             <span className='font-secondary font-normal text-[17px] leading-5 hover:underline mb-[11px]'>
-              <Link href='/my-account'>Minha conta</Link>
+              <Link href='/profile'>Meu perfil</Link>
             </span>
             <span className='font-secondary font-normal text-[17px] leading-5 hover:underline mb-[11px]'>
-              <Link href='/terms'>Termos de uso</Link>
+              <Link href='/'>Termos de uso</Link>
             </span>
             <span className='font-secondary font-normal text-[17px] leading-5 hover:underline mb-[11px]'>
               <Link href='/my-requests'>Meus pedidos</Link>

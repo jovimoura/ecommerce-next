@@ -5,10 +5,11 @@ export default function About() {
   return (
     <div className='flex flex-1 flex-col items-center pt-4'>
       <Head>
-        <title>About me</title>
+        <title>About me - J.M. Shop</title>
         <link
-          rel='icon'
+          rel='shortcut icon'
           href='https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg'
+          type='image/x-icon'
         />
       </Head>
       <div className='flex mx-auto justify-around w-4/5 h-full md:h-screen flex-col md:flex-row'>
