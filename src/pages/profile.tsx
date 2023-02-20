@@ -56,6 +56,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx?: any) => {
 };
 
 export default function Profile({ item }: Props) {
+  console.log(item);
   const router = useRouter();
 
   const [name, setName] = useState(item?.name || "");
@@ -81,8 +82,9 @@ export default function Profile({ item }: Props) {
       name,
       email,
       password,
-      avatarUrl: image ? toBase64(image) : avatarUrl,
+      avatarUrl: image ? await toBase64(image) : avatarUrl,
     };
+
     await api
       .patch(`/api/edit-user/${item.id}`, obj)
       .then((res) => {
