@@ -62,7 +62,7 @@ export default function Profile({ item }: Props) {
   const [name, setName] = useState(item?.name || "");
   const [email, setEmail] = useState(item?.email || "");
   const [password, setPassword] = useState(item.password || "");
-  const [confirmPassword, setConfirmPassword] = useState(item.password || "");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [avatarUrl, setAvatarUrl] = useState(item.avatarUrl || "");
 
   const [isLoading, setIsLoading] = useState(false);
@@ -113,6 +113,7 @@ export default function Profile({ item }: Props) {
           Meu Perfil
         </h1>
       </div>
+      {/* ADD MENU */}
       <div className='flex flex-col h-[calc(100vh-200px)] md:flex-row gap-10 justify-center items-center w-full'>
         <div className='flex item-center justify-center'>
           <div className='flex justify-center items-center flex-col'>
@@ -196,7 +197,7 @@ export default function Profile({ item }: Props) {
               id='price'
               type='password'
               required
-              placeholder='Confirme sua nova senha'
+              placeholder='Nova senha'
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />

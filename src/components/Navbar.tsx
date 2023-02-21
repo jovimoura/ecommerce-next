@@ -3,7 +3,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { ShoppingCartSimple } from "phosphor-react";
+import { Handbag } from "phosphor-react";
 import { Fragment, useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import Image from "next/image";
@@ -19,7 +19,7 @@ const navigation = [
   { name: "Fale Conosco", route: "/talk" },
 ];
 
-const profileLogged = [{ name: "Perfil", route: "/profile" }];
+const profileLogged = [{ name: "Meu Perfil", route: "/profile" }];
 const loginOptions = [
   { name: "Criar Conta", route: "/login?type=createAcc" },
   { name: "Login", route: "/login?type=login" },
@@ -154,9 +154,9 @@ export function Navbar() {
                               <Menu.Item>
                                 <button
                                   onClick={signOut}
-                                  className='block px-4 py-2 text-sm text-gray-700'
+                                  className='block px-4 py-2 text-sm text-gray-700 hover:text-indigo-500 transition-colors'
                                 >
-                                  Sign out
+                                  Sair
                                 </button>
                               </Menu.Item>
                             ) : null}
@@ -172,7 +172,7 @@ export function Navbar() {
                     }`}
                   >
                     <span className='sr-only'>Cart</span>
-                    <ShoppingCartSimple weight='fill' size={24} />
+                    <Handbag size={24} />
                     <span
                       className={`relative bottom-3 ${
                         router.asPath.startsWith("/cart")
@@ -250,7 +250,7 @@ export function Navbar() {
                     className='ml-auto bg-transparent flex-shrink-0 p-1 rounded-full text-indigo-500 hover:text-indigo-400 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent focus:ring-white'
                   >
                     <span className='sr-only'>Cart</span>
-                    <ShoppingCartSimple weight='fill' size={24} />
+                    <Handbag size={24} />
                     <span>{getItemsCount()}</span>
                   </button>
                 </div>
@@ -285,7 +285,7 @@ export function Navbar() {
                       onClick={signOut}
                       className='block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700'
                     >
-                      Sign out
+                      Sair
                     </button>
                   ) : null}
                 </div>

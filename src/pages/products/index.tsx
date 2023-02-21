@@ -43,7 +43,7 @@ export default function Products({ items }: Props) {
   const [type, setType] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage, setCardsPerPage] = useState("10");
+  const [cardsPerPage, setCardsPerPage] = useState("5");
 
   const indexOfLastCards = currentPage * parseInt(cardsPerPage);
   const indexOfFirstCards = indexOfLastCards - parseInt(cardsPerPage);
@@ -83,7 +83,7 @@ export default function Products({ items }: Props) {
               value={cardsPerPage}
               onChange={(e) => setCardsPerPage(e.target.value)}
               items={[
-                { name: "10", value: "10" },
+                { name: "5", value: "5" },
                 { name: "50", value: "50" },
                 { name: "100", value: "100" },
               ]}
