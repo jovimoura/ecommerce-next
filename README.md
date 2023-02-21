@@ -12,8 +12,6 @@
   The project have authentication system with cookies and tokens.
 </p>
 
-<br />
-
 # Installation
 
 ## Clone
