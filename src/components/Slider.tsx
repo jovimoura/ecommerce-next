@@ -45,7 +45,7 @@ export const Slider = ({ items }: Props) => {
       {loaded && instanceRef.current && (
         <div className='flex py-2 px-0 justify-center mt-4'>
           {[
-            ...Array(instanceRef.current.track.details?.slides.length).keys(),
+            ...Array(instanceRef.current.track.details.slides.length).keys(),
           ].map((idx) => {
             return (
               <button
