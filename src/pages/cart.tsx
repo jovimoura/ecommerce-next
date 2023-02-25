@@ -1,4 +1,3 @@
-import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { parseCookies } from "nookies";
 import { Minus, Plus } from "phosphor-react";
@@ -19,12 +18,6 @@ import {
 import { api } from "../services/api";
 import { convertToReal } from "../use-cases/convertToReal";
 
-interface Props {
-  item: {
-    idUser: string;
-  };
-}
-
 const types = [
   {
     name: "Tipo",
@@ -44,19 +37,8 @@ const types = [
   },
 ];
 
-export const getServerSideProps: GetServerSideProps = async (ctx?: any) => {
-  const { "auth_jmShop-token": token } = parseCookies(ctx);
-
-  return {
-    props: {
-      item: {
-        idUser: token !== undefined ? token : "no_user",
-      },
-    },
-  };
-};
-
-export default function CartPage({ item }: Props) {
+export default function CartPage() {
+  const { "auth_jmShop-token": token } = parseCookies();
   const cart = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
 
@@ -85,9 +67,7 @@ export default function CartPage({ item }: Props) {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   const handleFinishBuy = () => {
-    if (item.idUser.startsWith("no_user")) {
-      alert("Para efetuar a conta você precisa estar logado!🥲");
-    } else if (cart.length === 1) {
+    if (cart.length === 1) {
       try {
         setIsLoading(true);
         alert(
@@ -96,7 +76,7 @@ export default function CartPage({ item }: Props) {
         api
           .post("/api/boughts", {
             idItem: cart[0].id,
-            idUser: item.idUser,
+            idUser: token,
             status: "comprado",
             qtd: cart[0].quantity,
           })
@@ -133,6 +113,11 @@ export default function CartPage({ item }: Props) {
           Meu Carrinho
         </h1>
       </div>
+      {!token ? (
+        <div className='w-full py-2 flex items-center justify-center  text-red-600 mt-4'>
+          <p>Você precisa estar logado para finalizar a compra! 😅</p>
+        </div>
+      ) : null}
       <div className='font-sans'>
         {cart.length === 0 ? (
           <div className='min-h-[calc(100vh-120px)] flex flex-1 justify-center items-center flex-col'>
@@ -230,8 +215,8 @@ export default function CartPage({ item }: Props) {
               </span>
               <button
                 onClick={handleFinishBuy}
-                disabled={isLoading}
-                className='flex justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-lg leading-5 font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
+                disabled={!token || isLoading}
+                className='flex justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-lg leading-5 font-medium text-white hover:bg-indigo-700 disabled:bg-indigo-700 disabled:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
               focus:ring-offset-zinc-900'
               >
                 {isLoading ? <Loading /> : "Finalizar compra"}

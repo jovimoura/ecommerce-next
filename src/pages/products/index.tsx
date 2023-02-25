@@ -1,13 +1,14 @@
 import { gql } from "graphql-request";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Product } from "../../@types/item";
 import { Input } from "../../components/Input";
 import { Item } from "../../components/Item";
 import { Pagination } from "../../components/Pagination";
 import { Select } from "../../components/Select";
 import { graphcms } from "../../graphql/graphcms";
+import { api } from "../../services/api";
 
 interface Props {
   items: Product[];

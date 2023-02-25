@@ -8,12 +8,7 @@ export default async function boughts(
 ) {
   const { method } = req;
   const { idItem, idUser, status, qtd } = req.body;
-
   switch (method) {
-    case "GET":
-      const boughts = await prisma.boughts.findMany();
-      return res.status(200).json(boughts);
-
     case "POST":
       const newBoughts = await prisma.boughts.create({
         data: {
