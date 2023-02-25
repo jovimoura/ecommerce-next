@@ -49,7 +49,7 @@ export const Footer = () => {
               <Link href='/talk'>Fale conosco</Link>
             </span>
             <span className='font-secondary font-normal text-[17px] leading-5 hover:underline mb-[11px]'>
-              <Link href='/profile'>Meu perfil</Link>
+              <Link href='/profile?type=my-requests'>Meu perfil</Link>
             </span>
             <span className='font-secondary font-normal text-[17px] leading-5 hover:underline mb-[11px]'>
               <Link href='/'>Termos de uso</Link>

@@ -1,8 +1,8 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { parseCookies } from "nookies";
 
 export function getAPIClient(ctx?: any) {
-  const { "auth_next-token": token } = parseCookies(ctx);
+  const { "auth_jmShop-token": token } = parseCookies(ctx);
 
   console.log("ambient", process.env.NODE_ENV as string);
 
@@ -13,7 +13,7 @@ export function getAPIClient(ctx?: any) {
         : (process.env.DEV_URL_API as string),
   });
 
-  api.interceptors.request.use((config) => {
+  api.interceptors.request.use((config: AxiosRequestConfig) => {
     // console.log(config)
 
     return config;

@@ -27,9 +27,11 @@ model Users {
 model Boughts {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  idItem   String
-  nameItem String
-  idUser   String
+  idItem String
+  idUser String
+
+  status String
+  qtd    Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

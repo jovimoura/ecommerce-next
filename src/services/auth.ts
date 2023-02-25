@@ -14,18 +14,10 @@ type SignInRequestData = {
 export async function signInRequest(data: SignInRequestData): Promise<any> {
   const { email, password } = data;
 
-  const res = await api.post(
-    "/api/login",
-    {
-      email,
-      password,
-    }
-    // {
-    //   headers: {
-    //     Authorization: "teste",
-    //   },
-    // }
-  );
+  const res = await api.post("/api/login", {
+    email,
+    password,
+  });
 
   return res.data;
 }

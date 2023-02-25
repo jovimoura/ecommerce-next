@@ -19,7 +19,9 @@ const navigation = [
   { name: "Fale Conosco", route: "/talk" },
 ];
 
-const profileLogged = [{ name: "Meu Perfil", route: "/profile" }];
+const profileLogged = [
+  { name: "Meu Perfil", route: "/profile?type=my-requests" },
+];
 const loginOptions = [
   { name: "Criar Conta", route: "/login?type=createAcc" },
   { name: "Login", route: "/login?type=login" },
@@ -283,7 +285,7 @@ export function Navbar() {
                   {user?.name ? (
                     <button
                       onClick={signOut}
-                      className='block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700'
+                      className='block px-3 py-2 rounded-md text-base font-medium  hover:text-indigo-500'
                     >
                       Sair
                     </button>

@@ -11,14 +11,15 @@ import { parseCookies } from "nookies";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Input } from "../components/Input";
+import { Loading } from "../components/Loading";
 
 export const getServerSideProps: GetServerSideProps = async (ctx?: any) => {
-  const { "auth_next-token": token } = parseCookies(ctx);
+  const { "auth_jmShop-token": token } = parseCookies(ctx);
 
   if (token) {
     return {
       redirect: {
-        destination: "/profile",
+        destination: "/profile?type=my-requests",
         permanent: false,
       },
     };
@@ -39,6 +40,8 @@ const Login: NextPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [image, setImage] = useState();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const { signIn } = useContext(AuthContext);
 
   const handleClearInputs = () => {
@@ -50,11 +53,16 @@ const Login: NextPage = () => {
   };
 
   const handleSign = async (e: any) => {
+    setIsLoading(true);
     e.preventDefault();
     const { message } = await signIn({ email, password });
-    if (message.startsWith("Error"))
+    if (message.startsWith("Error")) {
+      setIsLoading(false);
       alert("E-mail ou senha estão errados, tente novamente");
-    else return;
+    } else {
+      setIsLoading(false);
+      return;
+    }
   };
 
   const handleSignUp = async (e: any) => {
@@ -62,14 +70,8 @@ const Login: NextPage = () => {
     if (confirmPassword !== password) {
       alert("Confirme sua senha correctamente!");
     } else {
-      let test = {
-        name,
-        email,
-        password,
-        avatarUrl: toBase64(image),
-      };
-      console.log("test", test);
       try {
+        setIsLoading(true);
         api
           .post("/api/login/signUp", {
             name,
@@ -78,9 +80,11 @@ const Login: NextPage = () => {
             avatarUrl: toBase64(image),
           })
           .then((res) => alert(`${res.data.message}`));
+        setIsLoading(false);
         router.push("/login?type=login");
         handleClearInputs();
       } catch (error) {
+        setIsLoading(false);
         console.log(`Error: ${error}`);
       }
     }
@@ -198,6 +202,7 @@ const Login: NextPage = () => {
               <div>
                 <button
                   type='submit'
+                  disabled={isLoading}
                   className='group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-500 py-3 px-4 text-xl font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors'
                 >
                   <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
@@ -206,7 +211,7 @@ const Login: NextPage = () => {
                       aria-hidden='true'
                     />
                   </span>
-                  Entrar
+                  {isLoading ? <Loading /> : "Entrar"}
                 </button>
               </div>
             </form>
@@ -314,9 +319,10 @@ const Login: NextPage = () => {
               <div className='mt-5'>
                 <button
                   type='submit'
+                  disabled={isLoading}
                   className='group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-500 py-3 px-4 text-xl font-semibold font-primary text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors'
                 >
-                  Criar Conta
+                  {isLoading ? <Loading /> : "Criar Conta"}
                 </button>
               </div>
             </form>

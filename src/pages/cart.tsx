@@ -1,18 +1,29 @@
+import { GetServerSideProps } from "next";
 import Head from "next/head";
+import { parseCookies } from "nookies";
 import { Minus, Plus } from "phosphor-react";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Product } from "../@types/item";
 import { Input } from "../components/Input";
 import { Item } from "../components/Item";
+import { Loading } from "../components/Loading";
 import { Pagination } from "../components/Pagination";
 import { Select } from "../components/Select";
+
 import {
   incrementQuantity,
   decrementQuantity,
   removeFromCart,
 } from "../redux/cart.slice";
+import { api } from "../services/api";
 import { convertToReal } from "../use-cases/convertToReal";
+
+interface Props {
+  item: {
+    idUser: string;
+  };
+}
 
 const types = [
   {
@@ -33,9 +44,23 @@ const types = [
   },
 ];
 
-export default function CartPage() {
+export const getServerSideProps: GetServerSideProps = async (ctx?: any) => {
+  const { "auth_jmShop-token": token } = parseCookies(ctx);
+
+  return {
+    props: {
+      item: {
+        idUser: token !== undefined ? token : "no_user",
+      },
+    },
+  };
+};
+
+export default function CartPage({ item }: Props) {
   const cart = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -60,9 +85,37 @@ export default function CartPage() {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   const handleFinishBuy = () => {
-    alert(
-      "Este website é apenas um mostruário, logo não há como comprar nada, mas fico feliz com sua visita! 😃"
-    );
+    if (item.idUser.startsWith("no_user")) {
+      alert("Para efetuar a conta você precisa estar logado!🥲");
+    } else if (cart.length === 1) {
+      try {
+        setIsLoading(true);
+        alert(
+          "Este website é apenas um mostruário, logo não há como comprar nada de verdade, mas você pode acompanhar sua compra na página de meus pedidos. Obrigado pela visita! 😃"
+        );
+        api
+          .post("/api/boughts", {
+            idItem: cart[0].id,
+            idUser: item.idUser,
+            status: "comprado",
+            qtd: cart[0].quantity,
+          })
+          .then((res) => {
+            setIsLoading(false);
+            alert(
+              "Comprado com sucesso, você pode acompanhar seu produto na página de meus pedidos"
+            );
+          })
+          .catch((err) => console.log(err));
+      } catch (error) {
+        console.log("error", error);
+        setIsLoading(false);
+        alert(
+          "Tivemos um problema ao finalizar sua compra, por favor tente novamente mais tarde!😃"
+        );
+      }
+    } else {
+    }
   };
 
   return (
@@ -75,10 +128,15 @@ export default function CartPage() {
           type='image/x-icon'
         />
       </Head>
+      <div className='w-full py-10 flex items-center justify-center bg-indigo-500 text-white mt-4'>
+        <h1 className='font-primary leading-5 text-4xl font-bold'>
+          Meu Carrinho
+        </h1>
+      </div>
       <div className='font-sans'>
         {cart.length === 0 ? (
-          <div className='h-[calc(100vh-65px)] flex flex-1 justify-center items-center flex-col'>
-            <h1 className='text-2xl font-semibold'>Your Cart is Empty!</h1>
+          <div className='min-h-[calc(100vh-120px)] flex flex-1 justify-center items-center flex-col'>
+            <h1 className='text-2xl font-semibold'>Seu carrinho está vazio</h1>
           </div>
         ) : (
           <div className='max-w-7xl mx-auto sm:px-6 lg:px-8'>
@@ -132,7 +190,7 @@ export default function CartPage() {
                           id={item.id}
                           price={item.price}
                           key={i}
-                          imageUrl={item.image.url}
+                          imageUrl={item.image?.url}
                           type={item.categorie}
                           title={item.name}
                           onDelete={async () =>
@@ -172,10 +230,11 @@ export default function CartPage() {
               </span>
               <button
                 onClick={handleFinishBuy}
+                disabled={isLoading}
                 className='flex justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-lg leading-5 font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
               focus:ring-offset-zinc-900'
               >
-                Finalizar compra
+                {isLoading ? <Loading /> : "Finalizar compra"}
               </button>
             </div>
             <Pagination

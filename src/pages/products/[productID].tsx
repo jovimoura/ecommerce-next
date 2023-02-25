@@ -48,7 +48,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx?: any) => {
   const { product } = await graphcms.request(GET_PRODUCT_BY_ID, {
     id: productID,
   });
-  console.log(product);
   return {
     props: {
       item: product,

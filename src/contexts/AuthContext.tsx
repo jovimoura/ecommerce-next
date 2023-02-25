@@ -38,7 +38,7 @@ export function AuthProvider({ children }: any) {
       });
 
       // runing on web, so first params is undefined
-      setCookie(undefined, "auth_next-token", token, {
+      setCookie(undefined, "auth_jmShop-token", token, {
         maxAge: 60 * 60 * 1, // 1 hour
       });
 
@@ -60,11 +60,11 @@ export function AuthProvider({ children }: any) {
   }
 
   async function signOut() {
-    const { "auth_next-token": token } = parseCookies();
+    const { "auth_jmShop-token": token } = parseCookies();
 
     if (token) {
       try {
-        destroyCookie(undefined, "auth_next-token");
+        destroyCookie(undefined, "auth_jmShop-token");
         Router.push("/");
         Router.reload();
       } catch (error) {
@@ -76,7 +76,7 @@ export function AuthProvider({ children }: any) {
   }
 
   useEffect(() => {
-    const { "auth_next-token": token } = parseCookies();
+    const { "auth_jmShop-token": token } = parseCookies();
 
     if (token) {
       recoverUserInformation(token)
