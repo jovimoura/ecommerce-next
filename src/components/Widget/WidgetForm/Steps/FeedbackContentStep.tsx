@@ -29,11 +29,17 @@ export function FeedbackContentStep({
 
     setIsSendingFeedback(true);
 
-    await api.post("/feedbacks", {
-      type: feedbackType,
-      comment,
-      screenshot,
-    });
+    api
+      .post("/api/feedbacks", {
+        type: feedbackType,
+        comment,
+        screenshot,
+      })
+      .then((res) => {
+        console.log(res);
+        alert("Feedback enviado!");
+      })
+      .catch((err) => console.log("Feedback error", err));
 
     setIsSendingFeedback(false);
     onFeedbackSent();

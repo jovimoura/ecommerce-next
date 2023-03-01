@@ -36,3 +36,16 @@ model Boughts {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Feedback {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  type       String
+  comment    String
+  screenshot String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // @@map("feedbacks")
+}
