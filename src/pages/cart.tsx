@@ -95,6 +95,34 @@ export default function CartPage() {
         );
       }
     } else {
+      for (let index = 0; index < cart.length; index++) {
+        try {
+          setIsLoading(true);
+          alert(
+            "Este website é apenas um mostruário, logo não há como comprar nada de verdade, mas você pode acompanhar sua compra na página de meus pedidos. Obrigado pela visita! 😃"
+          );
+          api
+            .post("/api/boughts", {
+              idItem: cart[index].id,
+              idUser: token,
+              status: "comprado",
+              qtd: cart[index].quantity,
+            })
+            .then((res) => {
+              setIsLoading(false);
+              alert(
+                "Comprado com sucesso, você pode acompanhar seu produto na página de meus pedidos"
+              );
+            })
+            .catch((err) => console.log(err));
+        } catch (error) {
+          console.log("error", error);
+          setIsLoading(false);
+          alert(
+            "Tivemos um problema ao finalizar sua compra, por favor tente novamente mais tarde!😃"
+          );
+        }
+      }
     }
   };
 

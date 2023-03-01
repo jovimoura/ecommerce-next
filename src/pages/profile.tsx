@@ -122,8 +122,6 @@ export default function Profile({
   myRequests,
   allItemsRequested,
 }: Props) {
-  console.log("allItemsRequested", allItemsRequested);
-
   const router = useRouter();
   const { type } = router.query;
 

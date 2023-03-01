@@ -4,7 +4,7 @@ import { parseCookies } from "nookies";
 export function getAPIClient(ctx?: any) {
   const { "auth_jmShop-token": token } = parseCookies(ctx);
 
-  console.log("ambient", process.env.NODE_ENV as string);
+  // console.log("ambient", process.env.NODE_ENV as string);
 
   const api = axios.create({
     baseURL:
