@@ -195,7 +195,7 @@ export default function Profile({
           Configurações
         </Link>
       </div>
-      <div className='flex flex-col h-[calc(100vh-200px)] md:flex-row gap-10 justify-center items-center w-full'>
+      <div className='flex flex-col py-[50px] md:py-[100px] md:flex-row gap-10 justify-center items-center w-full'>
         <>
           {type === "config" ? (
             <>
@@ -304,7 +304,7 @@ export default function Profile({
             allItemsRequested.map((item) => (
               <div
                 key={item.id}
-                className={`shadow cursor-pointer px-4 py-3 rounded-lg flex flex-col justify-center items-center gap-2 text-gray-900 w-full max-w-[260px] min-h-[170px]`}
+                className={`shadow cursor-pointer px-4 py-3 rounded-lg flex flex-col justify-center items-center gap-2 text-gray-900 w-full h-full max-w-[260px] min-h-[170px]`}
               >
                 <Image src={item.image.url} alt='' width={150} height={162} />
                 <div className='font-secondary text-indigo-500 font-medium text-sm gap-1 flex flex-col w-full justify-start'>
