@@ -14,6 +14,7 @@ import { Loading } from "../components/Loading";
 import { graphcms } from "../graphql/graphcms";
 import { prisma } from "../lib/prisma";
 import { api } from "../services/api";
+import { convertToReal } from "../use-cases/convertToReal";
 import { toBase64 } from "../use-cases/toBase64";
 
 interface Props {
@@ -121,7 +122,6 @@ export default function Profile({
   myRequests,
   allItemsRequested,
 }: Props) {
-  console.log("myRequests", myRequests);
   console.log("allItemsRequested", allItemsRequested);
 
   const router = useRouter();
@@ -301,7 +301,48 @@ export default function Profile({
               </form>
             </>
           ) : (
-            <></>
+            allItemsRequested.map((item) => (
+              <div
+                key={item.id}
+                className={`shadow cursor-pointer px-4 py-3 rounded-lg flex flex-col justify-center items-center gap-2 text-gray-900 w-full max-w-[260px] min-h-[170px]`}
+              >
+                <Image src={item.image.url} alt='' width={150} height={162} />
+                <div className='font-secondary text-indigo-500 font-medium text-sm gap-1 flex flex-col w-full justify-start'>
+                  <span className='font-light text-lg capitalize'>
+                    <span className='text-gray-900 font-medium'>
+                      Código de compra:
+                    </span>{" "}
+                    {item.id.substring(0, 6).toUpperCase()}
+                  </span>
+                </div>
+                <h1 className='text-lg font-medium font-secondary break-words'>
+                  Nome:{" "}
+                  <span className='text-indigo-500 font-light'>
+                    {item.name}
+                  </span>
+                </h1>
+                <div className='font-secondary text-indigo-500 font-medium text-sm gap-1 flex flex-col w-full justify-start'>
+                  <span className='font-light text-lg'>
+                    <span className='text-gray-900 font-medium'>Valor:</span>{" "}
+                    {convertToReal(item.price)}
+                  </span>
+                </div>
+                <div className='font-secondary text-indigo-500 font-medium text-sm gap-1 flex flex-col w-full justify-start'>
+                  <span className='font-light text-lg capitalize'>
+                    <span className='text-gray-900 font-medium'>Status:</span>{" "}
+                    {item.status}
+                  </span>
+                </div>
+                <div className='w-full flex justify-start'>
+                  <Link
+                    href={`/products/${item.idItem}`}
+                    className='flex items-center justify-center py-2 px-9 rounded-[50px] font-normal leading-6 text-white bg-indigo-500 hover:bg-indigo-400 transition-colors'
+                  >
+                    Detalhes
+                  </Link>
+                </div>
+              </div>
+            ))
           )}
         </>
       </div>
