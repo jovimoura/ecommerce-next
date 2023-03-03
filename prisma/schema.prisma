@@ -49,3 +49,16 @@ model Feedback {
 
   // @@map("feedbacks")
 }
+
+model Messages {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  name    String
+  email   String
+  phone   String
+  subject String
+  message String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
