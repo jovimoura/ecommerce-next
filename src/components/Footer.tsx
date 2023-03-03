@@ -3,6 +3,7 @@ import Link from "next/link";
 import { GithubIcon, InstagramIcon, LinkedinIcon } from "./icons";
 
 export const Footer = () => {
+  const today = new Date();
   return (
     <>
       <div className='w-full bg-[#FAFAFA] flex flex-col md:flex-row gap-10 md:gap-0 text-center md:text-left items-center justify-around py-10'>
@@ -144,8 +145,8 @@ export const Footer = () => {
       <footer className='flex md:hidden  flex-col items-center justify-center w-full h-[103px] border-t border-[#FFFFFF] bg-indigo-500 text-white'>
         <div className='w-full h-[62px] flex items-center justify-center'>
           <span className='font-semibold text-[7px] leading-[11px] uppercase'>
-            ©2023 Todos os direitos Reservados. | CNPJ: 45.479.784/0001-10 |
-            John Moura
+            ©{today.getFullYear()} Todos os direitos Reservados. | CNPJ:
+            45.479.784/0001-10 | John Moura
           </span>
         </div>
         <div className=' w-full h-[41px] flex items-center justify-center'>
