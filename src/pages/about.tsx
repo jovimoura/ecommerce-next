@@ -12,6 +12,9 @@ export default function About() {
           type='image/x-icon'
         />
       </Head>
+      <div className='w-full py-10 flex items-center justify-center bg-indigo-500 text-white mb-4'>
+        <h1 className='font-primary leading-5 text-4xl font-bold'>Sobre mim</h1>
+      </div>
       <div className='flex mx-auto justify-around w-4/5 h-full md:h-screen flex-col md:flex-row'>
         <div>
           <Image
@@ -22,7 +25,7 @@ export default function About() {
           />
         </div>
         <div className='w-full md:w-[400px] flex flex-col gap-4 text-gray-900'>
-          <p>
+          <p className='flex items-start justify-start gap-2'>
             Hi!
             <Image
               src='https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif'
@@ -33,20 +36,15 @@ export default function About() {
             My name is John Moura.
           </p>
           <p>
-            {`This project it's a Ecommerce and then we have 2 types of perfil.
-            The first one, it's a Admin perfil, and we can create new items on
-            Marketplace and the second one it's a user perfil and the user can
-            buy and see your items.`}
-          </p>
-          <p>
-            {`It's a simple Ecommerce, so we don't have much pages, just the
-            principal pages, to user and to Admin person.`}
+            {`In that project I used all technologies, frameworks and everything I learned about UI/UX in the 2022.
+              I updated my E-commerce, now I use not only Next.js, in its version 13, but I also use GraphQL with GraphCMS, Redux, Prisma and other libs in the Front-end of the project.
+              In it you have everything an e-commerce has so if you find a bug or if you want to leave feedback, use the feedback box, I will be very happy to hear from you! ✌`}
           </p>
           <p>
             I hope you liked this project and if you want to see others of my
             projects, access my{" "}
             <a
-              className='hover:underline'
+              className='hover:underline text-indigo-500'
               target='_blank'
               rel='noreferrer'
               href='https://portfolio-jovimoura.vercel.app/'
@@ -55,7 +53,7 @@ export default function About() {
             </a>{" "}
             or my{" "}
             <a
-              className='hover:underline'
+              className='hover:underline text-indigo-500'
               target='_blank'
               rel='noreferrer'
               href='https://github.com/jovimoura'
