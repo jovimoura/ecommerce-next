@@ -120,7 +120,7 @@ export default function Marketplace({ items }: Props) {
             Nossos <span className='text-indigo-500'>Destaques</span>
           </h1>
         </div>
-        <div className='h-full px-10 md:h-[calc(100vh-200px)] overflow-hidden'>
+        <div className='h-full px-10 py-4 md:h-[calc(100vh-200px)] overflow-hidden'>
           <div className='mt-6 px-0 sm:px-6 lg:px-8 flex flex-wrap justify-around items-center gap-10 md:gap-0'>
             {items?.map((item, i) => (
               <Item
