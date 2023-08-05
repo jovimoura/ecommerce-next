@@ -98,6 +98,7 @@ export default function ProductItem({ item }: Props) {
               width={350}
               height={350}
               src={item.image.url}
+              loading='lazy'
             />
           </div>
           <div className='w-full md:w-2/5 px-auto flex flex-col justify-center items-left text-gray-900'>
