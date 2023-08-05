@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
+import Image from "next/image";
 
 interface Props {
   items: {
@@ -32,10 +33,14 @@ export const Slider = ({ items }: Props) => {
               className='keen-slider__slide flex flex-col md:flex-row items-center justify-center gap[26px] md:gap-10'
             >
               <picture className='w-full'>
-                <img
+                <Image
                   src={item.image}
                   alt='image person'
+                  layout='responsive'
+                  width={472}
+                  height={172}
                   className='rounded w-full h-[172px] md:h-[472px]'
+                  loading='lazy'
                 />
               </picture>
             </div>
