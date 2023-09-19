@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 interface Props {
   items: {

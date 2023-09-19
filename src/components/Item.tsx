@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import { Trash } from "phosphor-react";
 import { ItemProps } from "../@types/item";

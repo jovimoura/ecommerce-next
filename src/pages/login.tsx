@@ -8,7 +8,7 @@ import { InputFile } from "../components/InputFile";
 import { api } from "../services/api";
 import { toBase64 } from "../use-cases/toBase64";
 import { parseCookies } from "nookies";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useRouter } from "next/router";
 import { Input } from "../components/Input";
 import { Loading } from "../components/Loading";

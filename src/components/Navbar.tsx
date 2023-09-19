@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { Handbag } from "phosphor-react";
 import { Fragment, useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { UserIcon } from "../assets/icons";
 
 function classNames(...classes: any) {
