@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
+import NextNProgress from "nextjs-progressbar";
 import { Provider } from "react-redux";
 import { AuthProvider } from "../contexts/AuthContext";
 import { Navbar } from "../components/Navbar";
@@ -21,6 +22,11 @@ function MyApp({
     <SWRConfig value={{ fetcher: fetcherGraphql }}>
       <AuthProvider>
         <Provider store={store}>
+          <NextNProgress
+            height={2}
+            color='#6366f1'
+            options={{ showSpinner: false }}
+          />
           <Navbar />
           <Component {...pageProps} />
           <Widget />

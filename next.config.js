@@ -2,13 +2,37 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: [
-      "www.iplace.com.br",
-      "avatars.githubusercontent.com",
-      "media.giphy.com",
-      "github.com",
-      "img.icons8.com",
-      "media.graphassets.com",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "www.iplace.com.br",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "media.giphy.com",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "img.icons8.com",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "media.graphassets.com",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "tailwindui.com",
+        port: "",
+      },
     ],
   },
 };

@@ -2,7 +2,7 @@ import { Boughts } from "@prisma/client";
 import { gql } from "graphql-request";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
